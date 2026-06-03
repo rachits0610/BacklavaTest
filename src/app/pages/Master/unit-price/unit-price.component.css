@@ -1,0 +1,10 @@
+#sub-category-wrapper {
+  margin-top: 54px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f6f8fc 0%, #fff7ed 48%, #eef9f0 100%);
+}
+.sub-cattegory-main {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}

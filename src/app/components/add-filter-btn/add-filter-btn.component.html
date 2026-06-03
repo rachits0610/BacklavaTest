@@ -1,0 +1,9 @@
+<div class="rt-toolbar">
+  <button *ngIf="showAddBtn" (click)="openAdd()" class="rt-add-btn">
+    <i class="fa-solid fa-plus"></i> New {{ addbtnLabel }}
+  </button>
+  <div *ngIf="!showAddBtn"></div>
+  <button (click)="openFilter()" *ngIf="showFilterBtn" class="rt-filter-btn">
+    <i class="fa-solid fa-sliders"></i> Filter
+  </button>
+</div>

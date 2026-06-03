@@ -1,0 +1,28 @@
+.rt-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rt-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #442a20;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 18px;
+  font-size: 0.8125rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 400ms ease;
+  letter-spacing: 0.3px;
+}
+.rt-add-btn:hover {
+  background: #1c1d1f;
+}

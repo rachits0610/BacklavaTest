@@ -1,0 +1,28 @@
+/* #category-wrapper {
+  margin-top: 54px;
+  padding: 20px;
+
+  background: linear-gradient(135deg, #f6f8fc 0%, #fff7ed 48%, #eef9f0 100%);
+} */
+
+#category-wrapper {
+  margin-top: 54px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f6f8fc 0%, #fff7ed 48%, #eef9f0 100%);
+}
+
+.category-main {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+app-add-filter-btn {
+  display: block;
+  margin-bottom: 16px;
+}
+@media (max-width: 768px) {
+  #category-wrapper {
+    padding: 0px;
+  }
+}

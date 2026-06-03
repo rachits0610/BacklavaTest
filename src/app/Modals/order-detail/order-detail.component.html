@@ -1,0 +1,141 @@
+<div class="od-root">
+  <div class="od-card">
+    <div class="od-header">
+      <div class="od-avatar">{{ getInitials(order.customerName) }}</div>
+      <div class="od-header-info">
+        <p class="od-header-name">{{ order.customerName }}</p>
+        <p class="od-header-sub">
+          +91 {{ order.phoneNumber }} &nbsp;·&nbsp; Order #{{ order.orderId }}
+        </p>
+      </div>
+      <div class="od-header-right">
+        <span class="od-badge" [ngClass]="getStatusBadge(order.orderStatus)">{{
+          order.orderStatus
+        }}</span>
+        <button class="od-close-btn" (click)="onClose()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="od-metrics">
+      <div class="od-metric">
+        <p class="od-metric-label">Total cost</p>
+        <p class="od-metric-value">₹{{ toNumber(order.totalCost) | number }}</p>
+        <p class="od-metric-sub">before discount</p>
+      </div>
+      <div class="od-metric">
+        <p class="od-metric-label">Discount</p>
+        <p class="od-metric-value">₹{{ toNumber(order.discount) | number }}</p>
+        <p class="od-metric-sub">applied</p>
+      </div>
+      <div class="od-metric">
+        <p class="od-metric-label">Final amount</p>
+        <p class="od-metric-value">
+          ₹{{ toNumber(order.finalAmount) | number }}
+        </p>
+        <p class="od-metric-sub">paid</p>
+      </div>
+    </div>
+
+    <div class="od-section">
+      <p class="od-section-title">
+        <i class="fa-solid fa-user"></i> Customer info
+      </p>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-circle-user"></i> Name</span
+        >
+        <span class="od-row-value">{{ order.customerName }}</span>
+      </div>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-phone"></i> Phone</span
+        >
+        <span class="od-row-value">{{ order.phoneNumber }}</span>
+      </div>
+    </div>
+
+    <div class="od-section">
+      <p class="od-section-title">
+        <i class="fa-solid fa-clipboard-list"></i> Order info
+      </p>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-hashtag"></i> Order ID</span
+        >
+        <span class="od-row-value">#{{ order.orderId }}</span>
+      </div>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-truck"></i> Order status</span
+        >
+        <span class="od-row-value">
+          <span
+            class="od-badge od-badge-sm"
+            [ngClass]="getStatusBadge(order.orderStatus)"
+          >
+            {{ order.orderStatus }}
+          </span>
+        </span>
+      </div>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-credit-card"></i> Payment status</span
+        >
+        <span class="od-row-value">
+          <span
+            class="od-badge od-badge-sm"
+            [ngClass]="getStatusBadge(order.paymentStatus)"
+          >
+            {{ order.paymentStatus }}
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="od-section">
+      <p class="od-section-title">
+        <i class="fa-solid fa-receipt"></i> Pricing summary
+      </p>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-tag"></i> Total cost</span
+        >
+        <span class="od-row-value"
+          >₹{{ toNumber(order.totalCost) | number }}</span
+        >
+      </div>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-percent"></i> Discount</span
+        >
+        <span class="od-row-value muted"
+          >₹{{ toNumber(order.discount) | number }}</span
+        >
+      </div>
+      <div class="od-divider-row">
+        <span class="od-divider-label">Final amount</span>
+        <span class="od-divider-value"
+          >₹{{ toNumber(order.finalAmount) | number }}</span
+        >
+      </div>
+    </div>
+
+    <div class="od-section">
+      <p class="od-section-title"><i class="fa-solid fa-clock"></i> Timeline</p>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-calendar-plus"></i> Created at</span
+        >
+        <span class="od-row-value">{{ order.createdAt }}</span>
+      </div>
+      <div class="od-row">
+        <span class="od-row-label"
+          ><i class="fa-solid fa-rotate"></i> Last updated</span
+        >
+        <span class="od-row-value">{{ order.updatedAt }}</span>
+      </div>
+    </div>
+  </div>
+</div>

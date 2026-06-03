@@ -1,0 +1,40 @@
+.pgntionCntnr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pgntionCntnr .ptrCrsr:hover {
+  cursor: pointer;
+}
+
+.showing-data {
+  color: #442a20;
+}
+.custom {
+  color: #442a20;
+}
+
+.page-item .page-link {
+  background-color: #fff;
+  color: #442a20;
+}
+
+.page-item.active .page-link {
+  color: #442a20;
+  font-weight: 600;
+  border-color: #442a20;
+}
+
+.page-item .page-link,
+.span {
+  font-size: 14px;
+}
+
+@media (max-width: 576px) {
+  .pgntionCntnr {
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 10px;
+  }
+}

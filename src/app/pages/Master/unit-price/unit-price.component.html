@@ -1,0 +1,32 @@
+<div id="sub-category-wrapper">
+  <app-breadcrum [header]="'Unit Price'" />
+  <div class="sub-cattegory-main">
+    <app-add-filter-btn
+      [showAddBtn]="true"
+      [showFilterBtn]="true"
+      [addbtnLabel]="'Unit Price'"
+      (onAdd)="addUnitPrice()"
+    />
+    <!-- <app-reusable-table
+      [showAddBtn]="false"
+      [showFilterBtn]="false"
+      [headers]="column"
+      [data]="subCategories"
+      [loading]="apiLoading"
+      [noOfData]="noOfData"
+      [pageNo]="page.pageNo"
+      [pageSize]="page.pageSize"
+      [pageArr]="pageArr"
+      [isNextPageAvailable]="isNextPageAvailable"
+      [addbtnLabel]="'Category'"
+      [showActions]="true"
+      [showEdit]="true"
+      [showDelete]="true"
+      (pageChange)="onPageChange($event)"
+      (onView)="openView($event)"
+      (onEdit)="openEdit($event)"
+      (onDelete)="openDelete($event)"
+    />
+  </div> -->
+  </div>
+</div>

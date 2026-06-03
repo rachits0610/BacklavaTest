@@ -1,0 +1,92 @@
+<div class="filter-bar">
+  <div class="filter-top">
+    <div class="filter-header">
+      <span class="filter-heading">Filters</span>
+      <button class="close-btn" type="button" (click)="onClose()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="filter-options">
+      <div class="filter-field search-field">
+        <label>Search</label>
+        <div class="input-icon-wrap">
+          <svg
+            class="input-icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            [(ngModel)]="filters.search"
+            [placeholder]="searchPlaceholder"
+            class="filter-input with-icon"
+          />
+        </div>
+      </div>
+
+      <div class="date-wrapper" *ngIf="showDateRange">
+        <div class="filter-field">
+          <label>Start Date</label>
+          <input
+            type="date"
+            [(ngModel)]="filters.startDate"
+            class="filter-input"
+          />
+        </div>
+        <div class="filter-field">
+          <label>End Date</label>
+          <input
+            type="date"
+            [(ngModel)]="filters.endDate"
+            class="filter-input"
+          />
+        </div>
+      </div>
+
+      <div class="status-size-wrapper">
+        <div class="filter-field" *ngIf="showStatus">
+          <label>Status</label>
+          <select [(ngModel)]="filters.statusId" class="filter-input">
+            <option value="2">All</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+          </select>
+        </div>
+        <!-- <div class="filter-field" *ngIf="showSize">
+          <label>Size</label>
+          <input
+            type="number"
+            [(ngModel)]="filters.size"
+            placeholder="e.g. 10"
+            class="filter-input"
+            min="0"
+          />
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-actions">
+    <button class="btn-clear" type="button" (click)="onClear()">Clear</button>
+    <button class="btn-apply" type="button" (click)="onApply()">Apply</button>
+  </div>
+</div>

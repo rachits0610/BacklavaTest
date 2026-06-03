@@ -1,0 +1,34 @@
+<div id="product-wrapper">
+  <app-breadcrum [header]="'Products'" />
+  <div class="sub-cattegory-main">
+    <app-add-filter-btn
+      [showAddBtn]="true"
+      [showFilterBtn]="true"
+      [addbtnLabel]="'Product'"
+      (onAdd)="addProduct()"
+      (onFilter)="filterData($event)"
+      ()
+    />
+    <app-reusable-table
+      [showAddBtn]="false"
+      [showFilterBtn]="false"
+      [headers]="column"
+      [data]="Products"
+      [tableHead]="tableHeader"
+      [loading]="apiLoading"
+      [noOfData]="noOfData"
+      [pageNo]="page.pageNo"
+      [pageSize]="page.pageSize"
+      [pageArr]="pageArr"
+      [isNextPageAvailable]="isNextPageAvailable"
+      [addbtnLabel]="'Category'"
+      [showActions]="true"
+      [showEdit]="true"
+      [showDelete]="true"
+      (pageChange)="onPageChange($event)"
+      (onView)="openView($event)"
+      (onEdit)="openEdit($event)"
+      (onDelete)="openDelete($event)"
+    />
+  </div>
+</div>

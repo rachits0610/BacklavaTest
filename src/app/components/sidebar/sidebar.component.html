@@ -1,0 +1,32 @@
+<aside
+  class="sidebar sidebar-wrapper"
+  [class.collapsed]="!isExpanded && !isMobile"
+>
+  <ng-container *ngFor="let group of menuSections">
+    <div class="section-label">{{ group.section }}</div>
+
+    <a
+      class="nav-item"
+      *ngFor="let item of group.items"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+      [title]="item.label"
+    >
+      <i class="{{ item.icon }} nav-icon"></i>
+      <span class="nav-label" *ngIf="isExpanded || isMobile">{{
+        item.label
+      }}</span>
+      <span class="badge" *ngIf="item.badge && (isExpanded || isMobile)">{{
+        item.badge
+      }}</span>
+      <span
+        class="badge-dot"
+        *ngIf="item.badge && !isExpanded && !isMobile"
+      ></span>
+    </a>
+  </ng-container>
+
+  <div class="spacer"></div>
+</aside>
+
+<div class="sidebar-panel" [class.collapsed]="!isExpanded && !isMobile"></div>

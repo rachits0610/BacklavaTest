@@ -1,0 +1,25 @@
+<div class="admin-layout">
+  <app-header
+    class="main-header"
+    [showHamburger]="isMobile"
+    (hamburgerClick)="toggleSidebar()"
+  ></app-header>
+
+  <div class="main-layout">
+    <div
+      class="sidebar-overlay"
+      [class.visible]="sidebarOpen && isMobile"
+      (click)="closeSidebar()"
+    ></div>
+
+    <app-sidebar
+      class="sidebar-work"
+      *ngIf="!isMobile || sidebarOpen"
+      [isMobile]="isMobile"
+    ></app-sidebar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,340 @@
+<!-- 
+
+<div class="modal-container">
+  <div class="modal-header">
+    <div class="header-text">
+      <h2 class="modal-title">{{ modalHeading }}</h2>
+    </div>
+    <button class="close-btn" (click)="onCancel()">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="modal-body">
+
+    <div class="form-group">
+      <label class="form-label" for="category">
+        Parent Category <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <div class="select-wrapper" [class.disabled]="isViewMode">
+        <select
+          id="category"
+          class="form-select"
+          [(ngModel)]="selectedCategory"
+          [disabled]="isViewMode"
+        >
+          <option value="" disabled>Select a category...</option>
+          <option *ngFor="let cat of categoryDDl" [value]="cat.id">
+            {{ cat.name }}
+          </option>
+        </select>
+        <div class="select-arrow">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="form-label" for="subcategoryName">
+        Subcategory Name <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <input
+        id="subcategoryName"
+        type="text"
+        class="form-input"
+        [(ngModel)]="subcategoryName"
+        [readonly]="isViewMode"
+        [class.readonly]="isViewMode"
+        placeholder="e.g. Some Sweets"
+        maxlength="100"
+      />
+      <div class="char-count" *ngIf="!isViewMode">
+        {{ subcategoryName.length }}/100
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="form-label" for="subCategoryStatus">
+        Status <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <div class="select-wrapper" [class.disabled]="isViewMode">
+        <select
+          id="subCategoryStatus"
+          class="form-select"
+          [(ngModel)]="statusId"
+          [disabled]="isViewMode"
+        >
+          <option value="" disabled>Select status...</option>
+          <option [value]="1">Active</option>
+          <option [value]="0">Inactive</option>
+        </select>
+        <div class="select-arrow">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="modal-footer">
+    <button class="btn btn-cancel" (click)="onCancel()">
+      {{ isViewMode ? "Close" : "Cancel" }}
+    </button>
+    <button
+      *ngIf="!isViewMode"
+      class="btn btn-submit"
+      [ngClass]="mode"
+      (click)="onSubmit()"
+      [disabled]="!isFormValid()"
+    >
+      <svg
+        *ngIf="isAddMode"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      <svg
+        *ngIf="isEditMode"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path
+          d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"
+        />
+        <polyline points="17 21 17 13 7 13 7 21" />
+        <polyline points="7 3 7 8 15 8" />
+      </svg>
+      {{ isAddMode ? "Add Subcategory" : "Save Changes" }}
+    </button>
+  </div>
+</div> -->
+
+<div class="modal-container">
+  <div class="modal-header">
+    <div class="header-text">
+      <h2 class="modal-title">{{ modalHeading }}</h2>
+    </div>
+    <button class="close-btn" (click)="onCancel()">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="modal-body">
+    <!-- Parent Category -->
+    <div class="form-group">
+      <label class="form-label" for="category">
+        Parent Category <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <div class="select-wrapper" [class.disabled]="isViewMode">
+        <select
+          id="category"
+          class="form-select"
+          [class.input-error]="
+            touched.selectedCategory && !!errors.selectedCategory
+          "
+          [(ngModel)]="selectedCategory"
+          [disabled]="isViewMode"
+          (change)="touch('selectedCategory')"
+        >
+          <option value="" disabled>Select a category...</option>
+          <option *ngFor="let cat of categoryDDl" [value]="cat.id">
+            {{ cat.name }}
+          </option>
+        </select>
+        <div class="select-arrow">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      </div>
+      <div class="field-error-slot">
+        <span
+          class="field-error"
+          *ngIf="touched.selectedCategory && errors.selectedCategory"
+          >{{ errors.selectedCategory }}</span
+        >
+      </div>
+    </div>
+
+    <!-- Subcategory Name -->
+    <div class="form-group">
+      <label class="form-label" for="subcategoryName">
+        Subcategory Name <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <input
+        id="subcategoryName"
+        type="text"
+        class="form-input"
+        [class.readonly]="isViewMode"
+        [class.input-error]="
+          touched.subcategoryName && !!errors.subcategoryName
+        "
+        [(ngModel)]="subcategoryName"
+        [readonly]="isViewMode"
+        placeholder="e.g. Some Sweets"
+        maxlength="100"
+        (input)="onNameInput($event)"
+        (blur)="touch('subcategoryName')"
+      />
+      <div class="field-error-slot">
+        <span
+          class="field-error"
+          *ngIf="touched.subcategoryName && errors.subcategoryName"
+          >{{ errors.subcategoryName }}</span
+        >
+      </div>
+      <div class="char-count" *ngIf="!isViewMode">
+        {{ subcategoryName.length }}/100
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="form-group">
+      <label class="form-label" for="subCategoryStatus">
+        Status <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <div class="select-wrapper" [class.disabled]="isViewMode">
+        <select
+          id="subCategoryStatus"
+          class="form-select"
+          [class.input-error]="touched.statusId && !!errors.statusId"
+          [(ngModel)]="statusId"
+          [disabled]="isViewMode"
+          (change)="touch('statusId')"
+        >
+          <option value="" disabled>Select status...</option>
+          <option [value]="1">Active</option>
+          <option [value]="0">Inactive</option>
+        </select>
+        <div class="select-arrow">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      </div>
+      <div class="field-error-slot">
+        <span class="field-error" *ngIf="touched.statusId && errors.statusId">{{
+          errors.statusId
+        }}</span>
+      </div>
+      <!-- Status badge in view mode -->
+      <span
+        *ngIf="isViewMode"
+        class="status-badge"
+        [class.active]="statusId === 1"
+        [class.inactive]="statusId === 0"
+      >
+        {{ statusId === 1 ? "Active" : "Inactive" }}
+      </span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="modal-footer">
+    <button class="btn btn-cancel" (click)="onCancel()">
+      {{ isViewMode ? "Close" : "Cancel" }}
+    </button>
+    <button
+      *ngIf="!isViewMode"
+      class="btn btn-submit"
+      [ngClass]="mode"
+      (click)="onSubmit()"
+      [disabled]="!isFormValid()"
+    >
+      <svg
+        *ngIf="isAddMode"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      <svg
+        *ngIf="isEditMode"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path
+          d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"
+        />
+        <polyline points="17 21 17 13 7 13 7 21" />
+        <polyline points="7 3 7 8 15 8" />
+      </svg>
+      {{ isAddMode ? "Add Subcategory" : "Save Changes" }}
+    </button>
+  </div>
+</div>

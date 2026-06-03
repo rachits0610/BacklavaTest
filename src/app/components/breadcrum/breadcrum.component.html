@@ -1,0 +1,50 @@
+<div class="breadcrun">
+  <div class="breadcrun-heading">
+    <span class="breadcrun-title">{{ header }}</span>
+
+    <nav class="stepper" aria-label="breadcrumb">
+      <ol class="stepper-list">
+        <li
+          *ngFor="let crumb of breadcrumbs; let i = index; let last = last"
+          class="stepper-item"
+        >
+          <span
+            class="step-dot"
+            [class.step-dot--done]="!last"
+            [class.step-dot--active]="last"
+          >
+            <svg
+              *ngIf="!last"
+              width="10"
+              height="8"
+              viewBox="0 0 10 8"
+              fill="none"
+            >
+              <path
+                d="M1 4L3.5 6.5L9 1"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span *ngIf="last">{{ i + 1 }}</span>
+          </span>
+
+          <a
+            *ngIf="!last"
+            [routerLink]="crumb.url"
+            class="step-label step-label--done"
+          >
+            {{ crumb.label }}
+          </a>
+          <span *ngIf="last" class="step-label step-label--active">
+            {{ crumb.label }}
+          </span>
+
+          <span *ngIf="!last" class="step-line"></span>
+        </li>
+      </ol>
+    </nav>
+  </div>
+</div>

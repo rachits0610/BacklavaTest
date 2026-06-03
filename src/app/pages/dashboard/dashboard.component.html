@@ -1,0 +1,712 @@
+<!-- <div class="dash">
+  <div class="top-bar">
+    <div>
+      <div class="top-title">Admin Dashboard</div>
+      <div class="top-sub">
+        <i class="ti ti-clock"></i>
+        <span>{{ currentDateTime }}</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn-add" (click)="addProduct()">
+        <i class="fa-solid fa-plus"></i> Add Product
+      </button>
+
+      <button class="btn-add" (click)="addCategory()">
+        <i class="fa-solid fa-plus"></i> Add Category
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="orange"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-box-icon lucide-box"
+        >
+          <path
+            d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+          />
+          <path d="m3.3 7 8.7 5 8.7-5" />
+          <path d="M12 22V12" />
+        </svg>
+        Total Products
+      </div>
+      <div class="stat-val">{{ dataSummary.totalProducts }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="Red"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-shopping-cart-icon lucide-shopping-cart"
+        >
+          <circle cx="8" cy="21" r="1" />
+          <circle cx="19" cy="21" r="1" />
+          <path
+            d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+          />
+        </svg>
+        Pending Orders
+      </div>
+      <div class="stat-val">{{ dataSummary.pendingOrders }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="green"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-circle-check-big-icon lucide-circle-check-big"
+        >
+          <path d="M21.801 10A10 10 0 1 1 17 3.335" />
+          <path d="m9 11 3 3L22 4" />
+        </svg>
+        Completed Orders
+      </div>
+      <div class="stat-val">{{ dataSummary.deliveredOrders }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">
+        <i
+          class="fa-solid fa-users"
+          style="color: rgb(107, 91, 91); font-size: 22px"
+        ></i>
+        Total Customers
+      </div>
+      <div class="stat-val">{{ dataSummary.totalUsers }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="Green"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chart-column-stacked-icon lucide-chart-column-stacked"
+        >
+          <path d="M11 13H7" />
+          <path d="M19 9h-4" />
+          <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+          <rect x="15" y="5" width="4" height="12" rx="1" />
+          <rect x="7" y="8" width="4" height="9" rx="1" />
+        </svg>
+        Categories
+      </div>
+      <div class="stat-val">{{ dataSummary.totalCategories }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="Green"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-indian-rupee-icon lucide-indian-rupee"
+        >
+          <path d="M6 3h12" />
+          <path d="M6 8h12" />
+          <path d="m6 13 8.5 8" />
+          <path d="M6 13h3" />
+          <path d="M9 13c6.667 0 6.667-10 0-10" />
+        </svg>
+        Revenue
+      </div>
+      <div class="stat-val">
+        {{ dataSummary.totalRevenue | number : "1.2-2" }}
+      </div>
+    </div>
+  </div>
+
+  <div class="mid-row">
+    <div class="card">
+      <div class="card-title">
+        <i class="ti ti-chart-bar"></i> Category wise sales performance
+      </div>
+      <div
+        class="chart-wrap"
+        *ngIf="deliveredProductsByCategory.length > 0; else noCatData"
+      >
+        <canvas id="catChart"></canvas>
+      </div>
+      <ng-template #noCatData>
+        <div class="no-data">No delivered product data yet</div>
+      </ng-template>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Top Customers</div>
+      <div class="customers-list">
+        <div class="customer-row" *ngFor="let c of topCustomers; let i = index">
+          <div
+            class="avatar"
+            [style.background]="avatarColors[i % avatarColors.length]"
+          >
+            {{ c.fullName.charAt(0).toUpperCase() }}
+          </div>
+          <div class="customer-info">
+            <div class="customer-name">{{ c.fullName }}</div>
+            <div class="customer-email">{{ c.email }}</div>
+          </div>
+          <div class="customer-stats">
+            <div class="customer-amount">
+              ₹{{ c.totalPayment | number : "1.0-0" }}
+            </div>
+            <div class="customer-orders">{{ c.totalPaidOrders }} orders</div>
+          </div>
+        </div>
+        <div class="no-data" *ngIf="topCustomers.length === 0">
+          No customer data
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="card">
+      <div class="section-header">
+        <div class="section-title">Sales Performance</div>
+        <div style="display: flex; gap: 8px">
+          <select class="select-sm">
+            <option>All Category</option>
+          </select>
+          <select class="select-sm">
+            <option>2026</option>
+          </select>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="salesChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">
+        <div class="section-title">Revenue by Region</div>
+        <select class="select-sm">
+          <option>2026</option>
+        </select>
+      </div>
+      <div class="region-mini-cards">
+        <div class="mini-card mini-c1">
+          <div class="mini-label">Total Revenue</div>
+          <div class="mini-val">
+            ₹{{ dataSummary.totalRevenue | number : "1.0-0" }}
+          </div>
+        </div>
+        <div class="mini-card mini-c2">
+          <div class="mini-label">Total Orders</div>
+          <div class="mini-val">{{ totalRegionOrders }}</div>
+        </div>
+        <div class="mini-card mini-c3">
+          <div class="mini-label">Best Region</div>
+          <div class="mini-val">{{ bestRegion }}</div>
+        </div>
+        <div class="mini-card mini-c4">
+          <div class="mini-label">Regions Active</div>
+          <div class="mini-val">{{ regions.length }}</div>
+        </div>
+      </div>
+      <div class="region-bar-row" *ngFor="let r of regions">
+        <div class="region-bar-label">
+          <span>{{ r.region }}</span>
+          <span
+            >₹{{ r.revenue | number : "1.0-0" }} &middot;
+            {{ r.totalOrders }} order{{ r.totalOrders !== 1 ? "s" : "" }}</span
+          >
+        </div>
+        <div class="region-bar-track">
+          <div
+            class="region-bar-fill"
+            [style.width]="r.pct + '%'"
+            [style.background]="r.color"
+          >
+            {{ r.pct }}%
+          </div>
+        </div>
+      </div>
+      <div class="no-data" *ngIf="regions.length === 0">No region data</div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="card">
+      <div class="section-title" style="margin-bottom: 16px">
+        Order Status Distribution
+      </div>
+      <div style="display: flex; align-items: center; gap: 24px">
+        <div class="chart-wrap-sm">
+          <canvas id="orderPie"></canvas>
+        </div>
+        <div class="pie-legend">
+          <div class="pie-legend-row" *ngFor="let s of orderStatusDistribution">
+            <span class="pie-dot" [style.background]="s.color"></span>
+            <span
+              >{{ s.statusName }} {{ s.percentage | number : "1.1-1" }}%</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title" style="margin-bottom: 16px">
+        Monthly Revenue Trend
+      </div>
+      <div class="chart-wrap">
+        <canvas id="revenueChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="payment-card">
+    <div class="payment-header">
+      <div class="section-title">Payment Methods Distribution</div>
+      <div class="payment-meta">
+        Total Transactions:
+        <b>{{ paymentSummary.totalTransactions }}</b> &nbsp;&nbsp; Total Amount:
+        <b>₹{{ paymentSummary.totalAmount | number : "1.0-0" }}</b>
+      </div>
+    </div>
+    <div class="payment-inner">
+      <div class="chart-wrap-sm">
+        <canvas id="payPie"></canvas>
+      </div>
+      <div class="payment-list">
+        <div class="pay-row" *ngFor="let p of paymentMethodsDistribution">
+          <div class="pay-name">
+            <span class="pay-dot" [style.background]="p.color"></span>
+            {{ p.paymentMethod }}
+            <span class="pay-amount">₹{{ p.amount | number : "1.0-0" }}</span>
+          </div>
+          <div class="pay-txn">{{ p.transactions }} transactions</div>
+          <div class="pay-track">
+            <div
+              class="pay-fill"
+              [style.width]="p.percentageOfTotal + '%'"
+              [style.background]="p.color"
+            ></div>
+          </div>
+          <div class="pay-pct">
+            {{ p.percentageOfTotal | number : "1.1-1" }}% of total
+          </div>
+        </div>
+        <div class="no-data" *ngIf="paymentMethodsDistribution.length === 0">
+          No payment data
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="dash">
+  <!-- ── Top bar ── -->
+  <div class="top-bar">
+    <div>
+      <div class="top-title">Admin Dashboard</div>
+      <div class="top-sub">
+        <i class="ti ti-clock"></i>
+        <span>{{ currentDateTime }}</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn-add" (click)="addProduct()">
+        <i class="fa-solid fa-plus"></i> Add Product
+      </button>
+      <button class="btn-add" (click)="addCategory()">
+        <i class="fa-solid fa-plus"></i> Add Category
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Summary cards ── -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="orange"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+          />
+          <path d="m3.3 7 8.7 5 8.7-5" />
+          <path d="M12 22V12" />
+        </svg>
+        Total Products
+      </div>
+      <div class="stat-val">{{ dataSummary.totalProducts }}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="red"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="8" cy="21" r="1" />
+          <circle cx="19" cy="21" r="1" />
+          <path
+            d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+          />
+        </svg>
+        Pending Orders
+      </div>
+      <div class="stat-val">{{ dataSummary.pendingOrders }}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="green"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21.801 10A10 10 0 1 1 17 3.335" />
+          <path d="m9 11 3 3L22 4" />
+        </svg>
+        Completed Orders
+      </div>
+      <div class="stat-val">{{ dataSummary.deliveredOrders }}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">
+        <i
+          class="fa-solid fa-users"
+          style="color: rgb(107, 91, 91); font-size: 22px"
+        ></i>
+        Total Customers
+      </div>
+      <div class="stat-val">{{ dataSummary.totalUsers }}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="green"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M11 13H7" />
+          <path d="M19 9h-4" />
+          <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+          <rect x="15" y="5" width="4" height="12" rx="1" />
+          <rect x="7" y="8" width="4" height="9" rx="1" />
+        </svg>
+        Categories
+      </div>
+      <div class="stat-val">{{ dataSummary.totalCategories }}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="green"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 3h12" />
+          <path d="M6 8h12" />
+          <path d="m6 13 8.5 8" />
+          <path d="M6 13h3" />
+          <path d="M9 13c6.667 0 6.667-10 0-10" />
+        </svg>
+        Revenue
+      </div>
+      <div class="stat-val">
+        ₹{{ dataSummary.totalRevenue | number : "1.0-0" }}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Mid row: category chart + top customers ── -->
+  <div class="mid-row">
+    <div class="card">
+      <div class="card-title">
+        <i class="ti ti-chart-bar"></i>
+        Category-wise Delivered Products
+        <span class="axis-hint"
+          >X: Category &nbsp;|&nbsp; Y: Delivered products count</span
+        >
+      </div>
+      <div
+        class="chart-wrap"
+        *ngIf="deliveredProductsByCategory.length > 0; else noCatData"
+      >
+        <canvas id="catChart"></canvas>
+      </div>
+      <ng-template #noCatData>
+        <div class="no-data">No delivered product data yet</div>
+      </ng-template>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Top Customers</div>
+      <div class="customers-list">
+        <div class="customer-row" *ngFor="let c of topCustomers; let i = index">
+          <div
+            class="avatar"
+            [style.background]="avatarColors[i % avatarColors.length]"
+          >
+            {{ c.fullName.charAt(0).toUpperCase() }}
+          </div>
+          <div class="customer-info">
+            <div class="customer-name">{{ c.fullName }}</div>
+            <div class="customer-email">{{ c.email }}</div>
+          </div>
+          <div class="customer-stats">
+            <div class="customer-amount">
+              ₹{{ c.totalPayment | number : "1.0-0" }}
+            </div>
+            <div class="customer-orders">{{ c.totalPaidOrders }} orders</div>
+          </div>
+        </div>
+        <div class="no-data" *ngIf="topCustomers.length === 0">
+          No customer data
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Bottom row 1: sales performance + revenue by region ── -->
+  <div class="bottom-row">
+    <div class="card">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Sales Performance</div>
+          <div class="axis-hint" style="margin-top: 2px">
+            X: Month &nbsp;|&nbsp; Y: Number of orders
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px">
+          <select
+            class="select-sm"
+            [(ngModel)]="selectedSalesCategory"
+            (ngModelChange)="onSalesCategoryChange()"
+          >
+            <option [value]="0">All Categories</option>
+            <option *ngFor="let cat of categories" [value]="cat.categoryId">
+              {{ cat.categoryName }}
+            </option>
+          </select>
+          <select
+            class="select-sm"
+            [(ngModel)]="selectedSalesYear"
+            (ngModelChange)="onSalesYearChange()"
+          >
+            <option *ngFor="let y of availableYears" [value]="y">
+              {{ y }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="salesChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">
+        <div class="section-title">Revenue by Region</div>
+        <select
+          class="select-sm"
+          [(ngModel)]="selectedRevenueYear"
+          (ngModelChange)="onRevenueYearChange()"
+        >
+          <option *ngFor="let y of availableYears" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+
+      <div class="region-mini-cards">
+        <div class="mini-card mini-c1">
+          <div class="mini-label">Total Revenue</div>
+          <div class="mini-val">
+            ₹{{ dataSummary.totalRevenue | number : "1.0-0" }}
+          </div>
+        </div>
+        <div class="mini-card mini-c2">
+          <div class="mini-label">Total Orders</div>
+          <div class="mini-val">{{ totalRegionOrders }}</div>
+        </div>
+        <div class="mini-card mini-c3">
+          <div class="mini-label">Best Region</div>
+          <div class="mini-val">{{ bestRegion }}</div>
+        </div>
+        <div class="mini-card mini-c4">
+          <div class="mini-label">Regions Active</div>
+          <div class="mini-val">{{ regions.length }}</div>
+        </div>
+      </div>
+
+      <div class="region-bar-row" *ngFor="let r of regions">
+        <div class="region-bar-label">
+          <span>{{ r.region }}</span>
+          <span>
+            ₹{{ r.revenue | number : "1.0-0" }} &middot;
+            {{ r.totalOrders }} order{{
+              r.totalOrders !== 1 ? "s" : ""
+            }}
+            &middot; {{ r.percentage | number : "1.1-1" }}%
+          </span>
+        </div>
+        <div class="region-bar-track">
+          <div
+            class="region-bar-fill"
+            [style.width]="r.pct + '%'"
+            [style.background]="r.color"
+          >
+            {{ r.percentage | number : "1.1-1" }}%
+          </div>
+        </div>
+      </div>
+      <div class="no-data" *ngIf="regions.length === 0">No region data</div>
+    </div>
+  </div>
+
+  <!-- ── Bottom row 2: order status pie + monthly revenue trend ── -->
+  <div class="bottom-row">
+    <div class="card">
+      <div class="section-title" style="margin-bottom: 4px">
+        Order Status Distribution
+      </div>
+      <div class="axis-hint" style="margin-bottom: 14px">
+        Slices: order statuses &nbsp;|&nbsp; Values: % of total orders
+      </div>
+      <div style="display: flex; align-items: center; gap: 24px">
+        <div class="chart-wrap-sm">
+          <canvas id="orderPie"></canvas>
+        </div>
+        <div class="pie-legend">
+          <div class="pie-legend-row" *ngFor="let s of orderStatusDistribution">
+            <span class="pie-dot" [style.background]="s.color"></span>
+            <span class="pie-label-name">{{ s.statusName }}</span>
+            <span class="pie-count">{{ s.count }} orders</span>
+            <span class="pie-pct">{{ s.percentage | number : "1.1-1" }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title" style="margin-bottom: 4px">
+        Monthly Revenue Trend
+      </div>
+      <div class="axis-hint" style="margin-bottom: 14px">
+        X: Month &nbsp;|&nbsp; Y: Revenue (₹)
+      </div>
+      <div class="chart-wrap">
+        <canvas id="revenueChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Payment methods ── -->
+  <div class="payment-card">
+    <div class="payment-header">
+      <div>
+        <div class="section-title">Payment Methods Distribution</div>
+        <div class="axis-hint" style="margin-top: 2px">
+          Slices: payment methods &nbsp;|&nbsp; Values: % of total amount
+        </div>
+      </div>
+      <div class="payment-meta">
+        Total Transactions:
+        <b>{{ paymentSummary.totalTransactions }}</b> &nbsp;&nbsp; Total Amount:
+        <b>₹{{ paymentSummary.totalAmount | number : "1.0-0" }}</b>
+      </div>
+    </div>
+    <div class="payment-inner">
+      <div class="chart-wrap-sm">
+        <canvas id="payPie"></canvas>
+      </div>
+      <div class="payment-list">
+        <div class="pay-row" *ngFor="let p of paymentMethodsDistribution">
+          <div class="pay-name">
+            <span class="pay-dot" [style.background]="p.color"></span>
+            {{ p.paymentMethod }}
+            <span class="pay-amount">₹{{ p.amount | number : "1.0-0" }}</span>
+          </div>
+          <div class="pay-txn">{{ p.transactions }} transactions</div>
+          <div class="pay-track">
+            <div
+              class="pay-fill"
+              [style.width]="p.percentageOfTotal + '%'"
+              [style.background]="p.color"
+            ></div>
+          </div>
+          <div class="pay-pct">
+            {{ p.percentageOfTotal | number : "1.1-1" }}% of total
+          </div>
+        </div>
+        <div class="no-data" *ngIf="paymentMethodsDistribution.length === 0">
+          No payment data
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

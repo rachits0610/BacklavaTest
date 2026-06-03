@@ -1,0 +1,225 @@
+.header {
+  height: 54px;
+  background: #442a20;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  font-family: "Inter", sans-serif;
+  position: relative;
+  z-index: 100;
+  min-width: 0;
+  gap: 12px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex-shrink: 1;
+}
+.change-psw-btn {
+  border: none;
+  height: 20px;
+  text-align: center;
+  font-size: 12px;
+  padding: 0px;
+  background-color: #fff;
+}
+
+.new-user {
+  border: none;
+  height: 20px;
+  text-align: center;
+  font-size: 12px;
+  padding: 0px;
+  background-color: #fff;
+}
+
+.logo-mark {
+  width: 30px;
+  height: 30px;
+  background: #f1e4b0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-mark h3 {
+  font-family: "DM Serif Display", serif;
+  font-size: 16px;
+  color: #442a20;
+  line-height: 1;
+  margin: 0;
+}
+
+.logo-name {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: #fff;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.user-area {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.user-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  transition: background 0.15s;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  background: rgba(241, 228, 176, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-avatar svg {
+  width: 16px;
+  height: 16px;
+  stroke: #f1e4b0;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  white-space: nowrap;
+}
+
+.chevron {
+  width: 14px;
+  height: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border: 0.5px solid #e8e8ec;
+  border-radius: 10px;
+  width: 180px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.dropdown-user {
+  padding: 12px 14px;
+  border-bottom: 0.5px solid #f0f0f4;
+}
+
+.dropdown-user-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #0e0e16;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dropdown-user-role {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #e24b4a;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.dropdown-item:hover {
+  background: #fdf2f2;
+}
+.dropdown-item svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  margin-right: 2px;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 768px) {
+  .user-name {
+    display: none;
+  }
+  .header {
+    padding: 0 16px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-name {
+    font-size: 13px;
+    max-width: 150px;
+  }
+}

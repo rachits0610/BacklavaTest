@@ -1,0 +1,173 @@
+.rt-actions-cell {
+  position: relative;
+}
+
+.rt-action-popover {
+  position: absolute;
+  bottom: calc(0% + 6px);
+  left: calc(5%+70px);
+  right: 90px;
+  z-index: 1000;
+  background: white;
+  border: 0.5px solid #ddd;
+  border-radius: 8px;
+  min-width: 130px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.rt-popover-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 14px;
+  background: none;
+  border: none;
+  border-bottom: 0.5px solid #eee;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: left;
+  color: #333;
+}
+.rt-actions-col {
+  position: fixed;
+}
+
+.rt-popover-btn:last-child {
+  border-bottom: none;
+}
+
+.rt-popover-btn:hover {
+  background: #f5f5f5;
+}
+
+.rt-popover-btn--danger {
+  color: #c0392b;
+}
+
+.rt-popover-btn--danger:hover {
+  background: #fdf0f0;
+}
+
+.rt-pill-active,
+.rt-pill-inactive,
+.rt-pill-neutral,
+.rt-pill-bool-true,
+.rt-pill-bool-false {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.rt-pill-active,
+.rt-pill-bool-true {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.rt-pill-inactive,
+.rt-pill-bool-false {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.rt-pill-neutral {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+.rt-pill-active::before,
+.rt-pill-inactive::before,
+.rt-pill-neutral::before,
+.rt-pill-bool-true::before,
+.rt-pill-bool-false::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rt-pill-active::before,
+.rt-pill-bool-true::before {
+  background: #16a34a;
+}
+
+.rt-pill-inactive::before,
+.rt-pill-bool-false::before {
+  background: #dc2626;
+}
+
+.rt-pill-neutral::before {
+  background: #ca8a04;
+}
+
+/*  */
+.rt-actions-col {
+  /* width: 60px;
+  min-width: 60px;
+  text-align: center;
+  white-space: nowrap;
+  position: sticky;
+  right: 0;
+
+  z-index: 2; */
+
+  width: 60px;
+  min-width: 60px;
+  text-align: center;
+  white-space: nowrap;
+  position: sticky;
+  right: 0;
+  background: rgba(188, 139, 125, 1);
+
+  /* color: black; */
+  overflow: hidden;
+  z-index: 5;
+}
+
+.rt-actions-cell {
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  position: sticky;
+  right: 0;
+  /* background: #fff; */
+  z-index: 1;
+}
+
+/* Keep sticky cell background on hover consistent */
+tr:hover .rt-actions-cell {
+  /* background: #f9fafb; */
+}
+
+/* .rt-action-popover {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background: white;
+  border: 0.5px solid #ddd;
+  border-radius: 8px;
+  min-width: 140px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+} */
+
+.rt-popover-upward {
+  top: auto;
+  bottom: 100%;
+  transform: none;
+}
+
+/* .rt-popover-downward {
+  top: 100%;
+  bottom: auto;
+  transform: none;
+} */

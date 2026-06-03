@@ -1,0 +1,51 @@
+<div class="change-password-container">
+  <div class="change-password-card">
+    <h2>Change Password</h2>
+
+    <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="oldPassword">Old Password</label>
+
+        <input
+          type="password"
+          id="oldPassword"
+          formControlName="oldPassword"
+          placeholder="Enter old password"
+        />
+
+        <small
+          *ngIf="
+            changePasswordForm.get('oldPassword')?.invalid &&
+            changePasswordForm.get('oldPassword')?.touched
+          "
+        >
+          Old password is required
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+
+        <input
+          type="password"
+          id="newPassword"
+          formControlName="newPassword"
+          placeholder="Enter new password"
+        />
+
+        <small
+          *ngIf="
+            changePasswordForm.get('newPassword')?.invalid &&
+            changePasswordForm.get('newPassword')?.touched
+          "
+        >
+          New password must be at least 6 characters
+        </small>
+      </div>
+
+      <button type="submit" [disabled]="changePasswordForm.invalid">
+        Update Password
+      </button>
+    </form>
+  </div>
+</div>

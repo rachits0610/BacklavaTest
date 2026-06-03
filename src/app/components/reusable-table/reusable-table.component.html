@@ -1,0 +1,150 @@
+<div class="rt-wrapper">
+  <div class="rt-toolbar">
+    <button *ngIf="showAddBtn" (click)="openAddCategory()" class="rt-add-btn">
+      <i class="fa-solid fa-plus"></i> New {{ addbtnLabel }}
+    </button>
+    <button (click)="openFilter()" *ngIf="showFilterBtn" class="rt-filter-btn">
+      <i class="fa-solid fa-sliders"></i> Filter
+    </button>
+  </div>
+
+  <div class="rt-scroll-container">
+    <table class="rt-table rt-hoverable">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th *ngFor="let header of tableHead">{{ header }}</th>
+          <th *ngIf="showActions" class="rt-actions-col">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <ng-container *ngIf="loading">
+          <tr class="rt-skeleton-row" *ngFor="let i of [1, 2, 3]">
+            <td><span class="rt-skeleton"></span></td>
+            <td *ngFor="let header of headers">
+              <span class="rt-skeleton"></span>
+            </td>
+            <td *ngIf="showActions"><span class="rt-skeleton"></span></td>
+          </tr>
+        </ng-container>
+
+        <tr *ngIf="!loading && data.length === 0">
+          <td
+            [attr.colspan]="
+              showActions ? headers.length + 2 : headers.length + 1
+            "
+            class="rt-empty"
+          >
+            <div class="rt-empty-inner">
+              <i class="fa-solid fa-box-open rt-empty-icon"></i>
+              <p>No data available</p>
+            </div>
+          </td>
+        </tr>
+
+        <tr *ngFor="let row of data; let i = index" class="rt-data-row">
+          <td data-label="S.No">
+            <span class="rt-cell-text">{{
+              (pageNo - 1) * pageSize + i + 1
+            }}</span>
+          </td>
+
+          <td
+            *ngFor="let header of headers; let j = index"
+            [attr.data-label]="tableHead[j]"
+          >
+            <span
+              *ngIf="isStatusValue(row[header])"
+              [ngClass]="getStatusClass(row[header])"
+            >
+              {{ row[header] }}
+            </span>
+
+            <span
+              *ngIf="isBool(row[header])"
+              [ngClass]="
+                row[header] ? 'rt-pill-bool-true' : 'rt-pill-bool-false'
+              "
+            >
+              {{ row[header] ? "Active" : "Inactive" }}
+            </span>
+
+            <div
+              *ngIf="
+                !isBool(row[header]) &&
+                !isStatusValue(row[header]) &&
+                isObject(row[header])
+              "
+              class="rt-cell-group"
+            >
+              <span class="rt-cell-main">{{ row[header]?.main ?? "—" }}</span>
+              <span class="rt-cell-sub">{{ row[header]?.sub ?? "" }}</span>
+            </div>
+
+            <span
+              *ngIf="
+                !isBool(row[header]) &&
+                !isStatusValue(row[header]) &&
+                !isObject(row[header])
+              "
+              class="rt-cell-text"
+            >
+              {{ row[header] ?? "—" }}
+            </span>
+          </td>
+
+          <td *ngIf="showActions" class="rt-actions-cell" data-label="Action">
+            <button
+              class="rt-popover-trigger"
+              (click)="togglePopover(row, $event)"
+            >
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+
+            <div
+              *ngIf="popoverRow === row"
+              class="rt-action-popover"
+              [class.rt-popover-upward]="popoverOpenUpward"
+              [class.rt-popover-downward]="!popoverOpenUpward"
+            >
+              <button
+                *ngIf="showView"
+                class="rt-popover-btn rt-popover-btn--view"
+                (click)="categoryView(row)"
+              >
+                <i class="fa-solid fa-eye"></i> View Details
+              </button>
+              <button
+                *ngIf="showEdit"
+                class="rt-popover-btn"
+                (click)="categoryEdit(row)"
+              >
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+              </button>
+              <button
+                *ngIf="showDelete"
+                class="rt-popover-btn rt-popover-btn--danger"
+                (click)="categoryDelete(row)"
+              >
+                <i class="fa-solid fa-trash"></i> Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="rt-footer">
+    <app-pagination
+      [pageNo]="pageNo"
+      [pageSize]="pageSize"
+      [noOfData]="noOfData"
+      [listLength]="data.length"
+      [pageArr]="pageArr"
+      [isNextPageAvailable]="isNextPageAvailable"
+      (getPageData)="pageChange.emit($event)"
+    />
+  </div>
+</div>

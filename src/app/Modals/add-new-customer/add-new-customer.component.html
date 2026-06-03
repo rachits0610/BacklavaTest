@@ -1,0 +1,309 @@
+<!-- <div class="modal-container">
+  <div class="modal-header">
+    <div class="header-text">
+      <h2 class="modal-title">{{ modalHeading }}</h2>
+    </div>
+
+    <button class="close-btn" (click)="onCancel()">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-label" for="customerName">
+        Full Name <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <input
+        id="customerName"
+        type="text"
+        class="form-input"
+        [(ngModel)]="fullName"
+        [readonly]="isViewMode"
+        [class.readonly]="isViewMode"
+        placeholder="e.g. John Doe"
+        maxlength="100"
+      />
+      <div class="char-count" *ngIf="!isViewMode">
+        {{ fullName.length }}/100
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="customerEmail">
+        Email Address <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <input
+        id="customerEmail"
+        type="email"
+        class="form-input"
+        [(ngModel)]="email"
+        [readonly]="isViewMode"
+        [class.readonly]="isViewMode"
+        placeholder="e.g. john@example.com"
+        maxlength="150"
+      />
+      <div class="char-count" *ngIf="!isViewMode">{{ email.length }}/150</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="customerContact">
+        Contact Number <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <input
+        id="customerContact"
+        type="tel"
+        class="form-input"
+        [(ngModel)]="phoneNumber"
+        [readonly]="isViewMode"
+        [class.readonly]="isViewMode"
+        placeholder="e.g. 9876543210"
+        maxlength="15"
+      />
+      <div class="char-count" *ngIf="!isViewMode">
+        {{ phoneNumber.length }}/15
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="modal-footer">
+    <button class="btn btn-cancel" (click)="onCancel()">
+      {{ isViewMode ? "Close" : "Cancel" }}
+    </button>
+    <button
+      *ngIf="!isViewMode"
+      class="btn btn-submit"
+      [ngClass]="mode"
+      (click)="onSubmit()"
+      [disabled]="!isFormValid()"
+    >
+      <svg
+        *ngIf="isAddMode"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      <svg
+        *ngIf="isEditMode"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path
+          d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"
+        />
+        <polyline points="17 21 17 13 7 13 7 21" />
+        <polyline points="7 3 7 8 15 8" />
+      </svg>
+      {{ isAddMode ? "Add Customer" : "Save Changes" }}
+    </button>
+  </div>
+</div> -->
+<div class="modal-container">
+  <div class="modal-header">
+    <div class="header-text">
+      <h2 class="modal-title">{{ modalHeading }}</h2>
+    </div>
+    <button class="close-btn" (click)="onCancel()">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-label" for="customerName">
+        Full Name <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <input
+        id="customerName"
+        type="text"
+        class="form-input"
+        [class.readonly]="isViewMode"
+        [class.input-error]="touched.fullName && !!errors.fullName"
+        [(ngModel)]="fullName"
+        [readonly]="isViewMode"
+        placeholder="Enter your full name"
+        maxlength="100"
+        (input)="onInput($event, 'fullName')"
+        (blur)="touch('fullName')"
+      />
+      <div class="field-error-slot">
+        <span class="field-error" *ngIf="touched.fullName && errors.fullName">{{
+          errors.fullName
+        }}</span>
+      </div>
+      <div class="char-count" *ngIf="!isViewMode">
+        {{ fullName.length }}/100
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="customerEmail">
+        Email Address <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <input
+        id="customerEmail"
+        type="email"
+        class="form-input"
+        appNoEmoji
+        [class.readonly]="isViewMode"
+        [class.input-error]="touched.email && !!errors.email"
+        [(ngModel)]="email"
+        [readonly]="isViewMode"
+        placeholder="Enter a valid email address"
+        maxlength="50"
+        (input)="onInput($event, 'email')"
+        (blur)="touch('email')"
+      />
+      <div class="field-error-slot">
+        <span class="field-error" *ngIf="touched.email && errors.email">{{
+          errors.email
+        }}</span>
+      </div>
+      <div class="char-count" *ngIf="!isViewMode">{{ email.length }}/150</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="customerContact">
+        Contact Number <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <input
+        id="customerContact"
+        type="tel"
+        class="form-input"
+        [class.readonly]="isViewMode"
+        [class.input-error]="touched.phoneNumber && !!errors.phoneNumber"
+        [(ngModel)]="phoneNumber"
+        [readonly]="isViewMode"
+        placeholder="Contact Number"
+        maxlength="10"
+        (input)="onPhoneInput($event)"
+        (blur)="touch('phoneNumber')"
+      />
+      <div class="field-error-slot">
+        <span
+          class="field-error"
+          *ngIf="touched.phoneNumber && errors.phoneNumber"
+          >{{ errors.phoneNumber }}</span
+        >
+      </div>
+      <div class="char-count" *ngIf="!isViewMode">
+        {{ phoneNumber.length }}/10
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="customerStatus">
+        Status <span class="required" *ngIf="!isViewMode">*</span>
+      </label>
+      <div class="select-wrapper" [class.disabled]="isViewMode">
+        <select
+          id="customerStatus"
+          class="form-select"
+          [(ngModel)]="statusId"
+          [disabled]="isViewMode"
+          (change)="touch('statusId')"
+        >
+          <option [ngValue]="1">Active</option>
+          <option [ngValue]="0">Inactive</option>
+        </select>
+        <span class="select-arrow">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </div>
+
+      <span
+        *ngIf="isViewMode"
+        class="status-badge"
+        [class.active]="statusId === 1"
+        [class.inactive]="statusId === 0"
+      >
+        {{ statusId === 1 ? "Active" : "Inactive" }}
+      </span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="modal-footer">
+    <button class="btn btn-cancel" (click)="onCancel()">
+      {{ isViewMode ? "Close" : "Cancel" }}
+    </button>
+    <button
+      *ngIf="!isViewMode"
+      class="btn btn-submit"
+      [ngClass]="mode"
+      (click)="onSubmit()"
+      [disabled]="!isFormValid()"
+    >
+      <svg
+        *ngIf="isAddMode"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      <svg
+        *ngIf="isEditMode"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path
+          d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"
+        />
+        <polyline points="17 21 17 13 7 13 7 21" />
+        <polyline points="7 3 7 8 15 8" />
+      </svg>
+      {{ isAddMode ? "Add Customer" : "Save Changes" }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div id="sub-category-wrapper">
+  <app-breadcrum [header]="'Orders'" />
+
+  <div class="sub-cattegory-main">
+    <app-add-filter-btn
+      [showAddBtn]="false"
+      [showFilterBtn]="true"
+      [isOrderComp]="true"
+      [paymentStatusDDl]="paymentStatusDDL"
+      [orderStatusDDL]="orderStatusDDL"
+      [addbtnLabel]="'Order'"
+      (onAdd)="addOrders()"
+      (onFilter)="filterData($event)"
+    />
+
+    <app-reusable-table
+      [showAddBtn]="false"
+      [showFilterBtn]="false"
+      [headers]="column"
+      [data]="allOrders"
+      [tableHead]="tableHeader"
+      [loading]="apiLoading"
+      [noOfData]="noOfData"
+      [pageNo]="page.pageNo"
+      [pageSize]="page.pageSize"
+      [pageArr]="pageArr"
+      [isNextPageAvailable]="isNextPageAvailable"
+      [showAddBtn]="false"
+      [addbtnLabel]="'Order'"
+      [showActions]="true"
+      [showView]="true"
+      [showEdit]="false"
+      [showDelete]="false"
+      (pageChange)="onPageChange($event)"
+      (onView)="openView($event)"
+      (onEdit)="openEdit($event)"
+      (onDelete)="openDelete($event)"
+    >
+    </app-reusable-table>
+  </div>
+</div>
