@@ -72,6 +72,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
           icon: 'fa-solid fa-sitemap',
           route: '/admin/master/sub-category',
         },
+        {
+          label: 'User Subscribed',
+          icon: 'fa-solid fa-crown',
+          route: '/admin/master/subscribed',
+        },
+        {
+          label: 'Users Contacted',
+          icon: 'fa-solid fa-address-book',
+          route: '/admin/master/contacted',
+        },
       ],
     },
   ];

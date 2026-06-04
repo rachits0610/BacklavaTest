@@ -116,19 +116,6 @@ export class PaymentsComponent implements OnInit {
     this.loadPayments();
   }
 
-  // filterData(event: any): void {
-  //   console.log(event);
-
-  //   this.page.search = event.search ?? '';
-  //   this.page.startDate = event.startDate ?? '';
-  //   this.page.endDate = event.endDate ?? '';
-
-  //   if (event.statusId !== undefined) {
-  //     this.page.paymentStatusId = +event.statusId;
-  //   }
-  //   this.page.pageNo = 1;
-  //   this.loadPayments();
-  // }
   filterData(event: any): void {
     console.log(event);
 

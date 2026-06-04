@@ -1,72 +1,3 @@
-<!-- <div class="modal-wrapper">
-  <div class="modal-header">
-    <h5 class="modal-title">{{ modalHeading }}</h5>
-    <button type="button" class="close-btn" (click)="dismiss()">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path
-          d="M12 4L4 12M4 4l8 8"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-        />
-      </svg>
-    </button>
-  </div>
-
-  <div class="modal-body">
-    <form [formGroup]="categoryForm">
-      <div class="form-group">
-        <label class="form-label" for="category">Category</label>
-        <input
-          id="category"
-          type="text"
-          class="form-input"
-          placeholder="Please enter category"
-          formControlName="categoryName"
-          [class.input-error]="isInvalid('categoryName')"
-        />
-        <span class="error-msg" *ngIf="isInvalid('categoryName')">
-          Category is required.
-        </span>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="status">Status</label>
-        <div class="select-wrapper">
-          <select id="status" class="form-select" formControlName="status">
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
-          <svg
-            class="select-icon"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M4 6l4 4 4-4"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn-cancel" (click)="dismiss()">
-      {{ isView ? "Close" : "Cancel" }}
-    </button>
-    <button *ngIf="!isView" type="button" class="btn-save" (click)="onSave()">
-      {{ mode === "edit" ? "Update" : "Save Changes" }}
-    </button>
-  </div>
-</div> -->
-
 <div class="modal-wrapper">
   <div class="modal-header">
     <h5 class="modal-title">{{ modalHeading }}</h5>
@@ -84,7 +15,6 @@
 
   <div class="modal-body">
     <form [formGroup]="categoryForm">
-      <!-- Category Name -->
       <div class="form-group">
         <label class="form-label" for="category">
           Category Name <span class="required-star">*</span>
@@ -113,7 +43,6 @@
         </div>
       </div>
 
-      <!-- Status -->
       <div class="form-group">
         <label class="form-label" for="status">Status</label>
         <div class="select-wrapper">
@@ -138,34 +67,6 @@
           </svg>
         </div>
       </div>
-
-      <!-- Description -->
-      <!-- <div class="form-group">
-        <label class="form-label" for="description">
-          Description <span class="optional-tag">Optional</span>
-        </label>
-        <textarea
-          id="description"
-          class="form-textarea"
-          placeholder="Brief description of this category..."
-          formControlName="description"
-          [class.input-error]="isInvalid('description')"
-          (input)="onDescriptionInput($event)"
-          maxlength="250"
-          rows="3"
-        ></textarea>
-        <div class="field-footer">
-          <span class="error-msg" *ngIf="isInvalid('description')">
-            {{ getError("description") }}
-          </span>
-          <span
-            class="char-count"
-            [class.char-count--warn]="descriptionLength >= 230"
-          >
-            {{ descriptionLength }}/250
-          </span>
-        </div>
-      </div> -->
     </form>
   </div>
 

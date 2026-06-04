@@ -1,0 +1,46 @@
+<div id="sub-category-wrapper">
+  <app-breadcrum [header]="'Contacted Users'" />
+
+  <div class="sub-cattegory-main">
+    <div class="rt-toolbar">
+      <div class="rt-toolbar-left">
+        <!-- <span class="rt-title">Contacted Users</span> -->
+      </div>
+      <div class="rt-toolbar-right">
+        <button class="rt-export-btn" (click)="exportToCSV()">
+          <i class="bi bi-download"></i> Export
+        </button>
+      </div>
+    </div>
+
+    <app-reusable-table
+      [showAddBtn]="false"
+      [showFilterBtn]="false"
+      [headers]="[
+        'name',
+        'email',
+        'phoneNumber',
+        'subjectName',
+        'message',
+        'contactedUsAt'
+      ]"
+      [tableHead]="[
+        'Name',
+        'Email',
+        'Phone',
+        'Subject',
+        'Message',
+        'Contacted At'
+      ]"
+      [data]="contactedUsers"
+      [loading]="isLoading"
+      [noOfData]="noOfData"
+      [pageNo]="pageNo"
+      [pageSize]="pageSize"
+      [pageArr]="pageArr"
+      [isNextPageAvailable]="isNextPageAvailable"
+      [showActions]="false"
+      (pageChange)="onPageChange($event)"
+    />
+  </div>
+</div>

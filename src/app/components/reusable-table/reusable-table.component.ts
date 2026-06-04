@@ -61,6 +61,8 @@ export class ReusableTableComponent implements OnInit {
     'success',
     'delivered',
     'refunded',
+    'shipped',
+    'delivered',
   ]);
 
   private static readonly INACTIVE_VALUES = new Set([
@@ -77,6 +79,8 @@ export class ReusableTableComponent implements OnInit {
     'on hold',
     'review',
     'draft',
+    'cancellation requested',
+    'processing',
   ]);
 
   constructor(private ngbOffCanvas: NgbOffcanvas) {}

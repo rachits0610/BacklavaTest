@@ -1,125 +1,100 @@
-<div class="pd-root">
-  <div class="pd-card">
-    <!-- <div class="pd-header">
-      <div class="pd-avatar">{{ getInitials(payment.customerName) }}</div>
-      <div class="pd-header-info">
-        <p class="pd-header-name">{{ payment.customerName }}</p>
-        <p class="pd-header-email">{{ payment.customerEmail }}</p>
+<div class="pd">
+  <div class="pd__header">
+    <div class="pd__header-left">
+      <div class="pd__avatar">{{ getInitials(payment.customerName) }}</div>
+      <div class="pd__header-info">
+        <p class="pd__name">{{ payment.customerName }}</p>
+        <p class="pd__sub">{{ payment.customerEmail }}</p>
       </div>
-      <span class="pd-header-badge">{{ payment.paymentStatus }}</span>
-    </div> -->
-    <div class="pd-header">
-      <div class="pd-avatar">{{ getInitials(payment.customerName) }}</div>
-      <div class="pd-header-info">
-        <p class="pd-header-name">{{ payment.customerName }}</p>
-        <p class="pd-header-email">{{ payment.customerEmail }}</p>
+    </div>
+    <div class="pd__header-right">
+      <span class="badge badge--green">{{ payment.paymentStatus }}</span>
+      <button class="pd__close" (click)="onClose()" aria-label="Close">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <div class="pd__metrics">
+    <div class="pd__metric">
+      <p class="pd__metric-label">Amount</p>
+      <p class="pd__metric-value">₹{{ payment.amount }}</p>
+      <p class="pd__metric-sub">{{ payment.paymentMode }}</p>
+    </div>
+    <div class="pd__metric">
+      <p class="pd__metric-label">Order ID</p>
+      <p class="pd__metric-value">#{{ payment.orderId }}</p>
+      <p class="pd__metric-sub">via {{ payment.provider }}</p>
+    </div>
+    <div class="pd__metric">
+      <p class="pd__metric-label">Payment ID</p>
+      <p class="pd__metric-value">#{{ payment.paymentId }}</p>
+      <p class="pd__metric-sub">internal</p>
+    </div>
+  </div>
+
+  <div class="pd__body">
+    <div class="pd__section">
+      <p class="pd__section-title">Customer info</p>
+      <div class="pd__row">
+        <span class="pd__row-label">Customer ID</span>
+        <span class="pd__row-value">#{{ payment.customerId }}</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0">
-        <span class="pd-header-badge">{{ payment.paymentStatus }}</span>
-        <button class="pd-close-btn" (click)="onClose()" aria-label="Close">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+      <div class="pd__row">
+        <span class="pd__row-label">Email</span>
+        <span class="pd__row-value">{{ payment.customerEmail }}</span>
+      </div>
+      <div class="pd__row">
+        <span class="pd__row-label">Phone</span>
+        <span class="pd__row-value">{{ payment.customerPhone }}</span>
       </div>
     </div>
 
-    <div class="pd-metrics">
-      <div class="pd-metric">
-        <p class="pd-metric-label">Amount</p>
-        <p class="pd-metric-value">₹{{ payment.amount }}</p>
-        <p class="pd-metric-sub">{{ payment.paymentMode }}</p>
+    <div class="pd__section">
+      <p class="pd__section-title">Payment info</p>
+      <div class="pd__row">
+        <span class="pd__row-label">Mode</span>
+        <span class="pd__row-value">{{ payment.paymentMode }}</span>
       </div>
-      <div class="pd-metric">
-        <p class="pd-metric-label">Order ID</p>
-        <p class="pd-metric-value">#{{ payment.orderId }}</p>
-        <p class="pd-metric-sub">via {{ payment.provider }}</p>
+      <div class="pd__row">
+        <span class="pd__row-label">Provider</span>
+        <span class="pd__row-value">{{ payment.provider }}</span>
       </div>
-      <div class="pd-metric">
-        <p class="pd-metric-label">Payment ID</p>
-        <p class="pd-metric-value">#{{ payment.paymentId }}</p>
-        <p class="pd-metric-sub">internal</p>
-      </div>
-    </div>
-
-    <div class="pd-section">
-      <p class="pd-section-title">
-        <i class="fa-solid fa-user"></i> Customer info
-      </p>
-      <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-id-badge"></i> Customer ID</span
-        >
-        <span class="pd-row-value">#{{ payment.customerId }}</span>
-      </div>
-      <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-envelope"></i> Email</span
-        >
-        <span class="pd-row-value">{{ payment.customerEmail }}</span>
-      </div>
-      <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-phone"></i> Phone</span
-        >
-        <span class="pd-row-value">{{ payment.customerPhone }}</span>
-      </div>
-    </div>
-
-    <div class="pd-section">
-      <p class="pd-section-title">
-        <i class="fa-solid fa-credit-card"></i> Payment info
-      </p>
-
-      <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-mobile-screen"></i> Mode</span
-        >
-        <span class="pd-row-value">{{ payment.paymentMode }}</span>
-      </div>
-      <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-receipt"></i> Razorpay order</span
-        >
-        <span class="pd-row-value"
-          ><span class="pd-mono">{{ payment.razorpayOrderId }}</span></span
-        >
-      </div>
-      <!-- <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-hashtag"></i> Razorpay payment</span
-        >
-        <span class="pd-row-value"
-          ><span class="pd-mono">{{ payment.razorpayPaymentId }}</span></span
-        >
-      </div> -->
-      <!-- <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-shield-check"></i> Signature</span
-        >
-        <span class="pd-row-value pd-muted">{{
-          payment.razorpaySignature ?? "—"
+      <div class="pd__row">
+        <span class="pd__row-label">Razorpay Order ID</span>
+        <span class="pd__row-value pd__mono">{{
+          payment.razorpayOrderId
         }}</span>
-      </div> -->
+      </div>
+      <div class="pd__row" *ngIf="payment.razorpayPaymentId">
+        <span class="pd__row-label">Razorpay Payment ID</span>
+        <span class="pd__row-value pd__mono">{{
+          payment.razorpayPaymentId
+        }}</span>
+      </div>
+      <div class="pd__row">
+        <span class="pd__row-label">Status</span>
+        <span class="pd__row-value">
+          <span class="badge badge--sm badge--green">{{
+            payment.paymentStatus
+          }}</span>
+        </span>
+      </div>
     </div>
 
-    <div class="pd-section">
-      <p class="pd-section-title"><i class="fa-solid fa-clock"></i> Timeline</p>
-      <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-cart-shopping"></i> Order placed</span
-        >
-        <span class="pd-row-value">{{ payment.orderCreatedAt }}</span>
+    <div class="pd__section">
+      <p class="pd__section-title">Timeline</p>
+      <div class="pd__row">
+        <span class="pd__row-label">Order placed</span>
+        <span class="pd__row-value">{{ payment.orderCreatedAt }}</span>
       </div>
-      <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-check"></i> Payment created</span
-        >
-        <span class="pd-row-value">{{ payment.paymentCreatedAt }}</span>
+      <div class="pd__row">
+        <span class="pd__row-label">Payment created</span>
+        <span class="pd__row-value">{{ payment.paymentCreatedAt }}</span>
       </div>
-      <div class="pd-row">
-        <span class="pd-row-label"
-          ><i class="fa-solid fa-rotate"></i> Last updated</span
-        >
-        <span class="pd-row-value">{{ payment.paymentUpdatedAt }}</span>
+      <div class="pd__row">
+        <span class="pd__row-label">Last updated</span>
+        <span class="pd__row-value">{{ payment.paymentUpdatedAt }}</span>
       </div>
     </div>
   </div>

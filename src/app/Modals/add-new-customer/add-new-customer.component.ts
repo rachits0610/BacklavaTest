@@ -1,100 +1,3 @@
-// import { Component, Input, OnInit } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-// import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-// import { MasterService } from '../../Services/master.service';
-// import { ToastrService } from 'ngx-toastr';
-
-// export type ModalMode = 'add' | 'edit' | 'view';
-
-// @Component({
-//   selector: 'app-add-new-customer',
-//   imports: [CommonModule, FormsModule],
-//   templateUrl: './add-new-customer.component.html',
-//   styleUrl: './add-new-customer.component.css',
-// })
-// export class AddNewCustomerComponent implements OnInit {
-//   constructor(
-//     private activeModal: NgbActiveModal,
-//     private masterService: MasterService,
-//     private toastrService: ToastrService
-//   ) {}
-
-//   @Input() modalHeading: string = '';
-//   @Input() mode: ModalMode = 'add';
-//   @Input() existingData: any = null;
-
-//   fullName: string = '';
-//   email: string = '';
-//   phoneNumber: string = '';
-
-//   get isViewMode(): boolean {
-//     return this.mode === 'view';
-//   }
-//   get isEditMode(): boolean {
-//     return this.mode === 'edit';
-//   }
-//   get isAddMode(): boolean {
-//     return this.mode === 'add';
-//   }
-
-//   ngOnInit(): void {
-//     if ((this.isViewMode || this.isEditMode) && this.existingData) {
-//       this.fullName = this.existingData.fullName ?? '';
-//       this.email = this.existingData.email ?? '';
-//       this.phoneNumber = this.existingData.phoneNumber ?? '';
-//     }
-//   }
-
-//   isFormValid(): boolean {
-//     return (
-//       this.fullName.trim().length > 0 &&
-//       this.email.trim().length > 0 &&
-//       this.phoneNumber.trim().length > 0
-//     );
-//   }
-
-//   onSubmit(): void {
-//     if (!this.isFormValid() || this.isViewMode) return;
-
-//     const payload = {
-//       customerId: this.isEditMode ? this.existingData?.userId ?? 0 : 0,
-//       fullName: this.fullName.trim(),
-//       email: this.email.trim(),
-//       phoneNumber: this.phoneNumber.trim(),
-//       statusId: 1,
-//     };
-
-//     if (this.isAddMode) {
-//       this.masterService.addCustomer(payload).subscribe({
-//         next: (res: any) => {
-//           this.activeModal.close(res.meta.status_code);
-//           this.toastrService.success(res.meta.status_message, 'Success');
-//         },
-//         error: (err) => {
-//           this.activeModal.dismiss();
-//           this.toastrService.success(err.meta.status_message, 'Success');
-//         },
-//       });
-//     } else if (this.isEditMode) {
-//       this.masterService.updateCustomer(payload).subscribe({
-//         next: (res: any) => {
-//           this.activeModal.close(res.meta.status_code);
-//           this.toastrService.success(res.meta.status_message, 'Success');
-//         },
-//         error: (err) => {
-//           this.activeModal.dismiss();
-//           this.toastrService.success(err.meta.status_message, 'Success');
-//         },
-//       });
-//     }
-//   }
-
-//   onCancel(): void {
-//     this.activeModal.dismiss();
-//   }
-// }
-
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -256,8 +159,6 @@ export class AddNewCustomerComponent implements OnInit {
       !this.errors.phoneNumber
     );
   }
-
-  // ── Submit ──────────────────────────────────────────────────────────────────
 
   onSubmit(): void {
     this.validateAll();

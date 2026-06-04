@@ -31,9 +31,13 @@ export const endpoints = {
   createUser: 'Api/AdminUsers/create-user',
   updateUserByUserId: 'Api/AdminUsers/update-user',
   deleteCustomer: 'Api/AdminUsers/delete-user',
+  getSubscribedUsers: 'Api/AdminUsers/get-subscribed-users',
+  getContactedUsers: 'Api/AdminUsers/get-contact-us-users',
 
   //all orders
   allOrders: 'Api/AdminOrder/get-all-orders',
+  orderDetailById: 'Api/AdminOrder/get-order-by-id',
+  cancelRequest: 'Api/AdminOrder/update-cancellation-request',
 
   //DashBoard Data
   getDashboardData: 'Api/AdminDashboard/get-admin-dashboard-data',

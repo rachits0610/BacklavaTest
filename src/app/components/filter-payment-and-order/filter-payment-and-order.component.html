@@ -87,8 +87,6 @@
         <label>Order Status</label>
 
         <select [(ngModel)]="filters.orderStatusId" class="filter-input">
-          <!-- <option value="">All</option> -->
-
           <option
             *ngFor="let status of orderStatusOptions"
             [value]="+status.orderStatusId"

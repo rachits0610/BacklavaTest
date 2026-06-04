@@ -6,9 +6,15 @@ export const adminRoutes: Routes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: '',
+
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
       {
         path: 'dashboard',
+        title: 'DashBoard-The Baklava Studio Admin',
         loadChildren: () =>
           import('../pages/dashboard/dashboard.routes').then(
             (m) => m.dashboardRoutes
@@ -16,6 +22,7 @@ export const adminRoutes: Routes = [
       },
       {
         path: 'products',
+        title: 'Products-The Baklava Studio Admin',
         loadChildren: () =>
           import('../pages/products/products.routes').then(
             (m) => m.productRoutes
@@ -23,6 +30,7 @@ export const adminRoutes: Routes = [
       },
       {
         path: 'customers',
+        title: 'Customer-The Baklava Studio Admin',
         loadChildren: () =>
           import('../pages/customers/customers.routes').then(
             (m) => m.customersRoutes
@@ -30,11 +38,13 @@ export const adminRoutes: Routes = [
       },
       {
         path: 'orders',
+        title: 'Orders-The Baklava Studio Admin',
         loadChildren: () =>
           import('../pages/orders/orders.routes').then((m) => m.orderRoutes),
       },
       {
         path: 'payments',
+        title: 'Payments-The Baklava Studio Admin',
         loadChildren: () =>
           import('../pages/payments/payments.routes').then(
             (m) => m.paymentRouts

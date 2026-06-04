@@ -1,50 +1,9 @@
-<!-- <div class="pgntionCntnr">
-  <span class="showing-data"
-    >[ showing {{ (pageNo - 1) * pageSize + listLength }} /
-    {{ noOfData }} ]</span
-  >
-  <ul class="pagination pagination-rounded justify-content-end mb-0">
-    <li class="page-item" [ngClass]="pageNo === 1 ? 'disabled' : 'ptrCrsr'">
-      <a
-        class="page-link"
-        (click)="pageNo > 1 && getPageData.emit(pageNo - 1)"
-        aria-label="Previous"
-      >
-        <i class="fa-solid fa-chevron-left custom"></i>
-      </a>
-    </li>
-
-    <li
-      *ngFor="let num of pageArr"
-      class="page-item"
-      [ngClass]="pageNo === num ? 'active' : 'ptrCrsr'"
-      (click)="pageNo !== num && getPageData.emit(num)"
-    >
-      <a class="page-link">{{ num }}</a>
-    </li>
-
-    <li
-      class="page-item"
-      [ngClass]="!isNextPageAvailable ? 'disabled' : 'ptrCrsr'"
-    >
-      <a
-        class="page-link"
-        (click)="isNextPageAvailable && getPageData.emit(pageNo + 1)"
-        aria-label="Next"
-      >
-        <i class="fa-solid fa-chevron-right custom"></i>
-      </a>
-    </li>
-  </ul>
-</div> -->
-
 <div class="pgntionCntnr">
   <span class="showing-data">
     [ showing {{ (pageNo - 1) * pageSize + listLength }} / {{ noOfData }} ]
   </span>
 
   <ul class="pagination pagination-rounded justify-content-end mb-0">
-    <!-- Previous -->
     <li class="page-item" [ngClass]="pageNo === 1 ? 'disabled' : 'ptrCrsr'">
       <a
         class="page-link"
@@ -55,12 +14,10 @@
       </a>
     </li>
 
-    <!-- Leading ellipsis -->
     <li class="page-item disabled" *ngIf="visiblePages[0] > 1">
       <a class="page-link">…</a>
     </li>
 
-    <!-- Page numbers (max 5) -->
     <li
       *ngFor="let num of visiblePages"
       class="page-item"
@@ -70,7 +27,6 @@
       <a class="page-link">{{ num }}</a>
     </li>
 
-    <!-- Trailing ellipsis -->
     <li
       class="page-item disabled"
       *ngIf="

@@ -64,4 +64,15 @@ export class MainService {
       `${environment.BaseURL}/${endpoints.paymentStatusDdl}`
     );
   }
+  getOrderDetailById(id: number) {
+    return this.httpClient.get(
+      `${environment.BaseURL}/${endpoints.orderDetailById}/${id}`
+    );
+  }
+  cancelOrder(payload: any) {
+    return this.httpClient.post(
+      `${environment.BaseURL}/${endpoints.cancelRequest}`,
+      payload
+    );
+  }
 }

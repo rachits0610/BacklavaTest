@@ -76,4 +76,16 @@ export class MasterService {
       payload
     );
   }
+  getSubscribedUsers(payload: any) {
+    return this.httpClient.post(
+      `${environment.BaseURL}/${endpoints.getSubscribedUsers}`,
+      payload
+    );
+  }
+  getContactedUsers(payload: any) {
+    return this.httpClient.post(
+      `${environment.BaseURL}/${endpoints.getContactedUsers}`,
+      payload
+    );
+  }
 }

@@ -1,141 +1,234 @@
-<div class="od-root">
-  <div class="od-card">
-    <div class="od-header">
-      <div class="od-avatar">{{ getInitials(order.customerName) }}</div>
-      <div class="od-header-info">
-        <p class="od-header-name">{{ order.customerName }}</p>
-        <p class="od-header-sub">
-          +91 {{ order.phoneNumber }} &nbsp;·&nbsp; Order #{{ order.orderId }}
+<div class="od">
+  <div class="od__header">
+    <div class="od__header-left">
+      <div class="od__avatar" *ngIf="order">
+        {{ getInitials(order.customer.customerName) }}
+      </div>
+      <div class="od__header-info">
+        <p class="od__name">{{ order?.customer?.customerName ?? "—" }}</p>
+        <p class="od__sub">
+          {{ order?.customer?.customerEmail }}&nbsp;·&nbsp;Order #{{
+            order?.orderNumber
+          }}
         </p>
       </div>
-      <div class="od-header-right">
-        <span class="od-badge" [ngClass]="getStatusBadge(order.orderStatus)">{{
-          order.orderStatus
-        }}</span>
-        <button class="od-close-btn" (click)="onClose()" aria-label="Close">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
     </div>
-
-    <div class="od-metrics">
-      <div class="od-metric">
-        <p class="od-metric-label">Total cost</p>
-        <p class="od-metric-value">₹{{ toNumber(order.totalCost) | number }}</p>
-        <p class="od-metric-sub">before discount</p>
-      </div>
-      <div class="od-metric">
-        <p class="od-metric-label">Discount</p>
-        <p class="od-metric-value">₹{{ toNumber(order.discount) | number }}</p>
-        <p class="od-metric-sub">applied</p>
-      </div>
-      <div class="od-metric">
-        <p class="od-metric-label">Final amount</p>
-        <p class="od-metric-value">
-          ₹{{ toNumber(order.finalAmount) | number }}
-        </p>
-        <p class="od-metric-sub">paid</p>
-      </div>
-    </div>
-
-    <div class="od-section">
-      <p class="od-section-title">
-        <i class="fa-solid fa-user"></i> Customer info
-      </p>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-circle-user"></i> Name</span
-        >
-        <span class="od-row-value">{{ order.customerName }}</span>
-      </div>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-phone"></i> Phone</span
-        >
-        <span class="od-row-value">{{ order.phoneNumber }}</span>
-      </div>
-    </div>
-
-    <div class="od-section">
-      <p class="od-section-title">
-        <i class="fa-solid fa-clipboard-list"></i> Order info
-      </p>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-hashtag"></i> Order ID</span
-        >
-        <span class="od-row-value">#{{ order.orderId }}</span>
-      </div>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-truck"></i> Order status</span
-        >
-        <span class="od-row-value">
-          <span
-            class="od-badge od-badge-sm"
-            [ngClass]="getStatusBadge(order.orderStatus)"
-          >
-            {{ order.orderStatus }}
-          </span>
-        </span>
-      </div>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-credit-card"></i> Payment status</span
-        >
-        <span class="od-row-value">
-          <span
-            class="od-badge od-badge-sm"
-            [ngClass]="getStatusBadge(order.paymentStatus)"
-          >
-            {{ order.paymentStatus }}
-          </span>
-        </span>
-      </div>
-    </div>
-
-    <div class="od-section">
-      <p class="od-section-title">
-        <i class="fa-solid fa-receipt"></i> Pricing summary
-      </p>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-tag"></i> Total cost</span
-        >
-        <span class="od-row-value"
-          >₹{{ toNumber(order.totalCost) | number }}</span
-        >
-      </div>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-percent"></i> Discount</span
-        >
-        <span class="od-row-value muted"
-          >₹{{ toNumber(order.discount) | number }}</span
-        >
-      </div>
-      <div class="od-divider-row">
-        <span class="od-divider-label">Final amount</span>
-        <span class="od-divider-value"
-          >₹{{ toNumber(order.finalAmount) | number }}</span
-        >
-      </div>
-    </div>
-
-    <div class="od-section">
-      <p class="od-section-title"><i class="fa-solid fa-clock"></i> Timeline</p>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-calendar-plus"></i> Created at</span
-        >
-        <span class="od-row-value">{{ order.createdAt }}</span>
-      </div>
-      <div class="od-row">
-        <span class="od-row-label"
-          ><i class="fa-solid fa-rotate"></i> Last updated</span
-        >
-        <span class="od-row-value">{{ order.updatedAt }}</span>
-      </div>
+    <div class="od__header-right">
+      <span
+        class="badge"
+        *ngIf="order"
+        [ngClass]="getStatusClass(order.status.orderStatus)"
+      >
+        {{ order.status.orderStatus }}
+      </span>
+      <button class="od__close" (click)="onClose()">✕</button>
     </div>
   </div>
+
+  <div class="od__loading" *ngIf="loading">
+    <div class="od__spinner"></div>
+    <p>Loading order details…</p>
+  </div>
+
+  <div class="od__error" *ngIf="error && !loading">
+    <p>{{ error }}</p>
+    <button (click)="loadOrder()">Retry</button>
+  </div>
+
+  <ng-container *ngIf="order && !loading">
+    <div class="od__metrics">
+      <div class="od__metric">
+        <p class="od__metric-label">Total cost</p>
+        <p class="od__metric-value">{{ order.amount.totalCost }}</p>
+        <p class="od__metric-sub">before discount</p>
+      </div>
+      <div class="od__metric">
+        <p class="od__metric-label">Discount</p>
+        <p class="od__metric-value">{{ order.amount.discount }}</p>
+        <p class="od__metric-sub">applied</p>
+      </div>
+      <div class="od__metric">
+        <p class="od__metric-label">Final amount</p>
+        <p class="od__metric-value">{{ order.amount.finalAmount }}</p>
+        <p class="od__metric-sub">paid</p>
+      </div>
+    </div>
+
+    <div class="od__body">
+      <div class="od__section">
+        <p class="od__section-title">Customer info</p>
+        <div class="od__row">
+          <span class="od__row-label">Name</span>
+          <span class="od__row-value">{{ order.customer.customerName }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">Email</span>
+          <span class="od__row-value">{{ order.customer.customerEmail }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">Phone</span>
+          <span class="od__row-value">{{
+            order.customer.customerPhoneNumber
+          }}</span>
+        </div>
+      </div>
+
+      <div class="od__section">
+        <p class="od__section-title">Order info</p>
+        <div class="od__row">
+          <span class="od__row-label">Order number</span>
+          <span class="od__row-value">{{ order.orderNumber }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">Order status</span>
+          <span class="od__row-value">
+            <span
+              class="badge badge--sm"
+              [ngClass]="getStatusClass(order.status.orderStatus)"
+            >
+              {{ order.status.orderStatus }}
+            </span>
+          </span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">Payment status</span>
+          <span class="od__row-value">
+            <span
+              class="badge badge--sm"
+              [ngClass]="getStatusClass(order.status.paymentStatus)"
+            >
+              {{ order.status.paymentStatus }}
+            </span>
+          </span>
+        </div>
+        <div class="od__row" *ngIf="order.razorpayOrderId">
+          <span class="od__row-label">Razorpay Order ID</span>
+          <span class="od__row-value od__mono">{{
+            order.razorpayOrderId
+          }}</span>
+        </div>
+      </div>
+
+      <div class="od__section">
+        <p class="od__section-title">Delivery address</p>
+        <div class="od__row">
+          <span class="od__row-label">Address</span>
+          <span class="od__row-value">{{ order.deliveryAddress.address }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">City</span>
+          <span class="od__row-value">{{ order.deliveryAddress.city }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">State</span>
+          <span class="od__row-value">{{
+            order.deliveryAddress.stateName
+          }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">Country</span>
+          <span class="od__row-value">{{
+            order.deliveryAddress.countryName
+          }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">Pin code</span>
+          <span class="od__row-value">{{ order.deliveryAddress.pinCode }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">Phone</span>
+          <span class="od__row-value">{{
+            order.deliveryAddress.deliveryPhoneNumber
+          }}</span>
+        </div>
+      </div>
+
+      <div class="od__section">
+        <p class="od__section-title">Order items</p>
+        <div class="od__items">
+          <div
+            class="od__item"
+            *ngFor="let item of order.items; trackBy: trackByItem"
+          >
+            <div class="od__item-img-wrap">
+              <img
+                [src]="
+                  'https://baklavaapi.cfcsitservices.co.in' + item.productImage
+                "
+                [alt]="item.productName"
+                class="od__item-img"
+              />
+            </div>
+            <div class="od__item-details">
+              <span class="od__item-name">{{ item.productName }}</span>
+              <span class="od__item-meta"
+                >{{ item.size }} pcs · {{ item.weight }}</span
+              >
+            </div>
+            <div class="od__item-right">
+              <span class="od__item-qty">×{{ item.quantity }}</span>
+              <span class="od__item-price"
+                >₹{{ item.totalPrice | number : "1.2-2" }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="od__totals">
+          <div class="od__totals-row">
+            <span>Subtotal</span><span>{{ order.amount.totalCost }}</span>
+          </div>
+          <div class="od__totals-row">
+            <span>Discount</span><span>{{ order.amount.discount }}</span>
+          </div>
+          <div class="od__totals-row od__totals-row--total">
+            <span>Total</span><span>{{ order.amount.finalAmount }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="od__section" *ngIf="order.payments?.length">
+        <p class="od__section-title">Payment details</p>
+        <div *ngFor="let p of order.payments">
+          <div class="od__row">
+            <span class="od__row-label">Mode</span>
+            <span class="od__row-value"
+              >{{ p.paymentMode }} via {{ p.provider }}</span
+            >
+          </div>
+          <div class="od__row">
+            <span class="od__row-label">Razorpay Order ID</span>
+            <span class="od__row-value od__mono">{{ p.razorpayOrderId }}</span>
+          </div>
+          <div class="od__row">
+            <span class="od__row-label">Payment ID</span>
+            <span class="od__row-value od__mono">{{
+              p.razorpayPaymentId
+            }}</span>
+          </div>
+          <div class="od__row">
+            <span class="od__row-label">Paid at</span>
+            <span class="od__row-value">{{
+              p.createdAt | date : "dd MMM yyyy, hh:mm a"
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="od__section">
+        <p class="od__section-title">Timeline</p>
+        <div class="od__row">
+          <span class="od__row-label">Created at</span>
+          <span class="od__row-value">{{
+            order.createdAt | date : "dd MMM yyyy, hh:mm a"
+          }}</span>
+        </div>
+        <div class="od__row">
+          <span class="od__row-label">Last updated</span>
+          <span class="od__row-value">{{
+            order.updatedAt | date : "dd MMM yyyy, hh:mm a"
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>

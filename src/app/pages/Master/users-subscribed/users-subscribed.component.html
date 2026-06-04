@@ -1,0 +1,32 @@
+<div id="sub-category-wrapper">
+  <app-breadcrum [header]="'Subscribed Users'" />
+
+  <div class="sub-cattegory-main">
+    <div class="rt-toolbar">
+      <div class="rt-toolbar-left">
+        <!-- <span class="rt-title">Subscribed Users</span> -->
+      </div>
+      <div class="rt-toolbar-right">
+        <button class="rt-export-btn" (click)="exportToCSV()">
+          <i class="bi bi-download"></i> Export
+        </button>
+      </div>
+    </div>
+
+    <app-reusable-table
+      [showAddBtn]="false"
+      [showFilterBtn]="false"
+      [headers]="['email', 'subscribedAt']"
+      [tableHead]="['Email', 'Subscribed At']"
+      [data]="subscribedUsers"
+      [loading]="isLoading"
+      [noOfData]="noOfData"
+      [pageNo]="pageNo"
+      [pageSize]="pageSize"
+      [pageArr]="pageArr"
+      [isNextPageAvailable]="isNextPageAvailable"
+      [showActions]="false"
+      (pageChange)="onPageChange($event)"
+    />
+  </div>
+</div>

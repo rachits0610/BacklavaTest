@@ -1,0 +1,201 @@
+<div class="cr-modal">
+  <!-- Header -->
+  <!-- <div class="cr-modal__header">
+    <div class="cr-modal__header-left">
+      <span class="cr-modal__icon">⚠</span>
+      <div>
+        <h2 class="cr-modal__title">Cancellation Request</h2>
+        <p class="cr-modal__subtitle" *ngIf="order">
+          Order #{{ order.orderNumber }}
+        </p>
+      </div>
+    </div>
+    <button class="cr-modal__close" (click)="close()" aria-label="Close">
+      ✕
+    </button>
+  </div> -->
+
+  <div class="cr-modal__header">
+    <div class="cr-modal__header-left">
+      <span
+        class="cr-modal__icon"
+        [style.background]="isCancellationRequested ? '#fdecea' : '#e8f0fe'"
+        [style.color]="isCancellationRequested ? '#c0392b' : '#1a56db'"
+      >
+        {{ isCancellationRequested ? "⚠" : "📋" }}
+      </span>
+      <div>
+        <h2 class="cr-modal__title">
+          {{
+            isCancellationRequested ? "Cancellation Request" : "Order Details"
+          }}
+        </h2>
+        <p class="cr-modal__subtitle" *ngIf="order">
+          Order #{{ order.orderNumber }}
+        </p>
+      </div>
+    </div>
+    <button class="cr-modal__close" (click)="closeModal()" aria-label="Close">
+      ✕
+    </button>
+  </div>
+
+  <div class="cr-modal__loading" *ngIf="loading">
+    <div class="cr-spinner"></div>
+    <p>Loading order details…</p>
+  </div>
+
+  <div class="cr-modal__error" *ngIf="error && !loading">
+    <p>{{ error }}</p>
+    <button class="cr-btn cr-btn--outline" (click)="loadOrder()">Retry</button>
+  </div>
+
+  <div class="cr-modal__confirmed" *ngIf="confirmed && !loading">
+    <div
+      class="cr-confirmed__icon"
+      [class.cr-confirmed__icon--accept]="confirmed === 'accepted'"
+      [class.cr-confirmed__icon--reject]="confirmed === 'rejected'"
+    >
+      {{ confirmed === "accepted" ? "✓" : "✕" }}
+    </div>
+    <h3 class="cr-confirmed__title">
+      Cancellation {{ confirmed === "accepted" ? "Approved" : "Rejected" }}
+    </h3>
+    <p class="cr-confirmed__sub">
+      Order #{{ order?.orderNumber }} has been
+      {{
+        confirmed === "accepted"
+          ? "cancelled and customer will be notified."
+          : "kept active."
+      }}
+    </p>
+    <button class="cr-btn cr-btn--primary" (click)="close()">Done</button>
+  </div>
+
+  <ng-container *ngIf="order && !loading && !confirmed">
+    <div class="cr-modal__body">
+      <div class="cr-info-grid">
+        <div class="cr-info-card">
+          <span class="cr-info-card__label">Customer</span>
+          <span class="cr-info-card__value">{{
+            order.customer.customerName
+          }}</span>
+          <span class="cr-info-card__meta">{{
+            order.customer.customerEmail
+          }}</span>
+          <span class="cr-info-card__meta">{{
+            order.customer.customerPhoneNumber
+          }}</span>
+        </div>
+        <div class="cr-info-card">
+          <span class="cr-info-card__label">Payment</span>
+          <span class="cr-info-card__value">{{
+            order.amount.finalAmount
+          }}</span>
+          <span class="cr-info-card__meta cr-pill cr-pill--paid">
+            {{ order.status.paymentStatus }}
+          </span>
+        </div>
+        <div class="cr-info-card">
+          <span class="cr-info-card__label">Delivery Address</span>
+          <span class="cr-info-card__value">{{
+            order.deliveryAddress.city
+          }}</span>
+          <span class="cr-info-card__meta">
+            {{ order.deliveryAddress.stateName }},
+            {{ order.deliveryAddress.pinCode }}
+          </span>
+        </div>
+      </div>
+
+      <div class="cr-section">
+        <h4 class="cr-section__title">Order Items</h4>
+        <div class="cr-items">
+          <div
+            class="cr-item"
+            *ngFor="let item of order.items; trackBy: trackByItem"
+          >
+            <div class="cr-item__img-wrap">
+              <img
+                [src]="
+                  'https://baklavaapi.cfcsitservices.co.in' + item.productImage
+                "
+                [alt]="item.productName"
+                class="cr-item__img"
+              />
+            </div>
+            <div class="cr-item__details">
+              <span class="cr-item__name">{{ item.productName }}</span>
+              <span class="cr-item__meta"
+                >{{ item.size }} pcs · {{ item.weight }}</span
+              >
+            </div>
+            <div class="cr-item__right">
+              <span class="cr-item__qty">×{{ item.quantity }}</span>
+              <span class="cr-item__price"
+                >₹{{ item.totalPrice | number : "1.2-2" }}</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="cr-totals">
+          <div class="cr-totals__row">
+            <span>Subtotal</span>
+            <span>{{ order.amount.totalCost }}</span>
+          </div>
+          <div class="cr-totals__row">
+            <span>Discount</span>
+            <span>{{ order.amount.discount }}</span>
+          </div>
+          <div class="cr-totals__row cr-totals__row--total">
+            <span>Total</span>
+            <span>{{ order.amount.finalAmount }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cr-section" *ngIf="order.payments?.length">
+        <h4 class="cr-section__title">Payment Details</h4>
+        <div class="cr-payment" *ngFor="let p of order.payments">
+          <div class="cr-payment__row">
+            <span class="cr-payment__label">Mode</span>
+            <span>{{ p.paymentMode }} via {{ p.provider }}</span>
+          </div>
+          <div class="cr-payment__row">
+            <span class="cr-payment__label">Razorpay Order ID</span>
+            <span class="cr-payment__mono">{{ p.razorpayOrderId }}</span>
+          </div>
+          <div class="cr-payment__row">
+            <span class="cr-payment__label">Payment ID</span>
+            <span class="cr-payment__mono">{{ p.razorpayPaymentId }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cr-modal__footer" *ngIf="isCancellationRequested">
+      <p class="cr-modal__footer-note">
+        Accepting will cancel this order. This action cannot be undone.
+      </p>
+      <div class="cr-modal__actions">
+        <button
+          class="cr-btn cr-btn--reject"
+          (click)="reject()"
+          [disabled]="actionLoading"
+        >
+          <span *ngIf="!actionLoading">Reject Request</span>
+          <span *ngIf="actionLoading" class="cr-btn__spinner"></span>
+        </button>
+        <button
+          class="cr-btn cr-btn--accept"
+          (click)="accept()"
+          [disabled]="actionLoading"
+        >
+          <span *ngIf="!actionLoading">Accept & Cancel Order</span>
+          <span *ngIf="actionLoading" class="cr-btn__spinner"></span>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>

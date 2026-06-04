@@ -1,18 +1,44 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainService } from '../../Services/main.service';
 
 @Component({
   selector: 'app-order-detail',
   standalone: true,
-  imports: [CommonModule, DecimalPipe],
+  imports: [CommonModule],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.css',
 })
-export class OrderDetailComponent {
-  @Input() order: any = {};
+export class OrderDetailComponent implements OnInit {
+  @Input() orderId!: number;
 
-  constructor(private activeModal: NgbActiveModal) {}
+  order: any = null;
+  loading = false;
+  error = '';
+
+  constructor(
+    private activeModal: NgbActiveModal,
+    private mainService: MainService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadOrder();
+  }
+
+  loadOrder(): void {
+    this.loading = true;
+    this.mainService.getOrderDetailById(this.orderId).subscribe({
+      next: (res: any) => {
+        this.order = res.data;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Failed to load order details.';
+        this.loading = false;
+      },
+    });
+  }
 
   onClose(): void {
     this.activeModal.dismiss();
@@ -28,19 +54,24 @@ export class OrderDetailComponent {
       .join('');
   }
 
-  getStatusBadge(status: string): string {
+  getStatusClass(status: string): string {
     const s = status?.toLowerCase().trim();
-    const green = ['confirmed', 'paid', 'completed', 'approved', 'success'];
-    const yellow = ['pending', 'processing', 'on hold', 'review', 'draft'];
+    const green = [
+      'confirmed',
+      'paid',
+      'completed',
+      'approved',
+      'success',
+      'delivered',
+      'refunded',
+    ];
     const red = ['cancelled', 'failed', 'rejected', 'unpublished'];
-    if (green.includes(s)) return 'od-badge-green';
-    if (yellow.includes(s)) return 'od-badge-yellow';
-    if (red.includes(s)) return 'od-badge-red';
-    return 'od-badge-yellow';
+    if (green.includes(s)) return 'badge--green';
+    if (red.includes(s)) return 'badge--red';
+    return 'badge--yellow';
   }
 
-  toNumber(val: any): number {
-    if (typeof val === 'number') return val;
-    return parseFloat(String(val).replace(/[^0-9.]/g, '')) || 0;
+  trackByItem(_: number, item: any): number {
+    return item.orderItemsId;
   }
 }

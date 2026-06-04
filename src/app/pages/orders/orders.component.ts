@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StateService } from '../../Services/state.service';
 import { Router } from '@angular/router';
 import { ModalBackButtonService } from '../../Services/modalClose.service';
+import { CancellationRequestAcceptRejectComponent } from '../../Modals/cancellation-request-accept-reject/cancellation-request-accept-reject.component';
 
 @Component({
   selector: 'app-orders',
@@ -44,18 +45,6 @@ export class OrdersComponent implements OnInit {
   ];
 
   noOfData = 0;
-
-  // page = {
-  //   pageNo: 1,
-  //   pageSize: 10,
-  //   search: '',
-  //   startDate: '',
-  //   endDate: '',
-  //   orderStatusId: 0,
-  //   paymentStatus: '',
-  //   shippingStatus: '',
-  //   paymentStatusId: 0,
-  // };
 
   page = {
     pageNo: 1,
@@ -107,77 +96,6 @@ export class OrdersComponent implements OnInit {
     console.log('Add Orders');
   }
 
-  // loadOrders() {
-  //   this.apiLoading = true;
-
-  //   const payload = {
-  //     pageNo: this.page.pageNo,
-  //     pageSize: this.page.pageSize,
-  //     search: this.page.search,
-  //     startDate: this.page.startDate,
-  //     endDate: this.page.endDate,
-  //     orderStatusId: this.page.orderStatusId,
-  //     paymentStatus: this.page.paymentStatus,
-  //     paymentStatusId: this.page.paymentStatusId,
-  //     shippingStatus: this.page.shippingStatus,
-  //   };
-
-  //   this.mainService.getAllOrders(payload).subscribe({
-  //     next: (res: any) => {
-  //       this.apiLoading = false;
-
-  //       if (res?.meta?.status_code === 1) {
-  //         this.allOrders = res?.data?.orders || [];
-
-  //         this.noOfData = res?.data?.totalRecords || 0;
-
-  //         this.isNextPageAvailable = res?.data?.nextPageAvailable || false;
-
-  //         const totalPages = res?.data?.totalPages || 0;
-
-  //         this.pageArr = Array.from({ length: totalPages }, (_, i) => i + 1);
-  //       }
-  //     },
-
-  //     error: (err: any) => {
-  //       this.apiLoading = false;
-  //       console.log(err);
-  //     },
-  //   });
-  // }
-
-  // loadOrders() {
-  //   this.apiLoading = true;
-
-  //   const payload = {
-  //     pageNo: this.page.pageNo,
-  //     pageSize: this.page.pageSize,
-  //     search: this.page.search,
-  //     startDate: this.page.startDate,
-  //     endDate: this.page.endDate,
-  //     orderStatusId: this.page.orderStatusId,
-  //     paymentStatusId: this.page.paymentStatusId,
-  //   };
-
-  //   this.mainService.getAllOrders(payload).subscribe({
-  //     next: (res: any) => {
-  //       this.apiLoading = false;
-
-  //       if (res?.meta?.status_code === 1) {
-  //         this.allOrders = res?.data?.orders || [];
-  //         this.noOfData = res?.data?.totalRecords || 0;
-  //         this.isNextPageAvailable = res?.data?.nextPageAvailable || false;
-
-  //         const totalPages = res?.data?.totalPages || 0;
-  //         this.pageArr = Array.from({ length: totalPages }, (_, i) => i + 1);
-  //       }
-  //     },
-  //     error: (err: any) => {
-  //       this.apiLoading = false;
-  //       console.log(err);
-  //     },
-  //   });
-  // }
   loadOrders() {
     this.apiLoading = true;
 
@@ -233,34 +151,52 @@ export class OrdersComponent implements OnInit {
       size: 'lg',
     });
     this.modalBackButtonService.register(modalRef);
-    modalRef.componentInstance.order = event;
+    modalRef.componentInstance.orderId = event.orderId;
+  }
+  orderDetails: any;
+  openEdit(event: any) {
+    // this.getOrderDetails(event.orderId);
+    this.openCancellationModal(event.orderId);
+  }
+  openCancellationModal(orderId: number): void {
+    const ref = this.modalService.open(
+      CancellationRequestAcceptRejectComponent,
+      {
+        centered: true,
+        size: 'lg',
+        backdrop: 'static',
+      }
+    );
+    ref.componentInstance.orderId = orderId;
+
+    ref.result.then(
+      (result) => {
+        if (result === 'accepted' || result === 'rejected') {
+          this.loadOrders();
+        }
+      },
+      () => {}
+    );
   }
 
-  openEdit(event: any) {
-    console.log('Edit Order', event);
+  getOrderDetails(id: number) {
+    this.mainService.getOrderDetailById(id).subscribe({
+      next: (res: any) => {
+        this.orderDetails = res.data;
+      },
+    });
   }
 
   openDelete(event: any) {
     console.log('Delete Order', event);
   }
-  // filterData(event: any) {
-  //   console.log(event);
 
-  //   this.page.search = event.search;
-  //   this.page.startDate = event.startDate;
-  //   this.page.endDate = event.endDate;
-  //   this.page.orderStatusId = event.orderStatusId;
-  //   this.page.paymentStatusId = event.paymentStatusId;
-  //   this.allOrders = [];
-  //   this.loadOrders();
-  // }
   filterData(event: any) {
     this.page.search = event.search;
     this.page.startDate = event.startDate;
     this.page.endDate = event.endDate;
     this.page.orderStatusId = +event.orderStatusId;
     this.page.paymentStatusId = +event.paymentStatusId;
-
     this.page.pageNo = 1;
     this.loadOrders();
   }

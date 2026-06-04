@@ -1,89 +1,3 @@
-// import { Component, Input, OnInit } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-// import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-// import { MasterService } from '../../Services/master.service';
-// import { ToastrService } from 'ngx-toastr';
-
-// export type ModalMode = 'add' | 'edit' | 'view';
-
-// @Component({
-//   selector: 'app-add-subcategory',
-//   imports: [CommonModule, FormsModule],
-//   templateUrl: './add-subcategory.component.html',
-//   styleUrl: './add-subcategory.component.css',
-// })
-// export class AddSubcategoryComponent implements OnInit {
-//   constructor(
-//     private activeModal: NgbActiveModal,
-//     private masterService: MasterService,
-//     private toastrService: ToastrService
-//   ) {}
-
-//   @Input() modalHeading: string = '';
-//   @Input() categoryDDl: any[] = [];
-//   @Input() mode: ModalMode = 'add';
-//   @Input() existingData: any = null;
-
-//   selectedCategory: string = '';
-//   subcategoryName: string = '';
-//   statusId: number | string = '';
-
-//   get isViewMode(): boolean {
-//     return this.mode === 'view';
-//   }
-//   get isEditMode(): boolean {
-//     return this.mode === 'edit';
-//   }
-//   get isAddMode(): boolean {
-//     return this.mode === 'add';
-//   }
-
-//   ngOnInit(): void {
-//     if ((this.isViewMode || this.isEditMode) && this.existingData) {
-//       this.selectedCategory = String(this.existingData.categoryId ?? '');
-//       this.subcategoryName = this.existingData.subCategoryName ?? '';
-//       this.statusId = this.existingData.statusId ?? '';
-//     }
-//   }
-
-//   isFormValid(): boolean {
-//     return (
-//       this.selectedCategory !== '' &&
-//       this.subcategoryName.trim().length > 0 &&
-//       this.statusId !== ''
-//     );
-//   }
-
-//   onSubmit(): void {
-//     if (!this.isFormValid() || this.isViewMode) return;
-
-//     const payload = {
-//       subCategoryId: this.isEditMode
-//         ? this.existingData?.subCategoryId ?? 0
-//         : 0,
-//       subCategoryName: this.subcategoryName.trim(),
-//       categoryId: this.selectedCategory,
-//       statusId: Number(this.statusId),
-//     };
-
-//     this.masterService.addSubCategory(payload).subscribe({
-//       next: (res: any) => {
-//         this.activeModal.close(res.meta.status_code);
-//         this.toastrService.success(res.meta.status_message, 'Success');
-//       },
-//       error: (err) => {
-//         this.activeModal.dismiss();
-//         this.toastrService.error(err.meta.status_message, 'Failed');
-//       },
-//     });
-//   }
-
-//   onCancel(): void {
-//     this.activeModal.dismiss();
-//   }
-// }
-
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -148,8 +62,6 @@ export class AddSubcategoryComponent implements OnInit {
     }
   }
 
-  // ── Input handlers ──────────────────────────────────────────────────────────
-
   onNameInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     const cleaned = input.value.replace(EMOJI_RE, '');
@@ -167,8 +79,6 @@ export class AddSubcategoryComponent implements OnInit {
     if (field in this.touched) (this.touched as any)[field] = true;
     this.validate(field);
   }
-
-  // ── Validation ──────────────────────────────────────────────────────────────
 
   validate(field: string): void {
     switch (field) {
@@ -220,8 +130,6 @@ export class AddSubcategoryComponent implements OnInit {
     );
   }
 
-  // ── Submit ──────────────────────────────────────────────────────────────────
-
   onSubmit(): void {
     this.validateAll();
     if (!this.isFormValid() || this.isViewMode) return;
@@ -237,7 +145,7 @@ export class AddSubcategoryComponent implements OnInit {
 
     const call$ = this.isAddMode
       ? this.masterService.addSubCategory(payload)
-      : this.masterService.addSubCategory(payload); // swap to updateSubCategory when available
+      : this.masterService.addSubCategory(payload);
 
     call$.subscribe({
       next: (res: any) => {
