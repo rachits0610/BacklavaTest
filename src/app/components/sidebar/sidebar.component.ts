@@ -40,22 +40,22 @@ export class SidebarComponent implements OnInit, OnDestroy {
         {
           label: 'Products',
           icon: 'fa-solid fa-box',
-          route: '/admin/products',
+          route: '/products',
         },
         {
           label: 'Orders',
           icon: 'fa-solid fa-cart-shopping',
-          route: '/admin/orders',
+          route: '/orders',
         },
         {
           label: 'Payments',
           icon: 'fa-solid fa-credit-card',
-          route: '/admin/payments',
+          route: '/payments',
         },
         {
           label: 'Customers',
           icon: 'fa-solid fa-users',
-          route: '/admin/customers',
+          route: '/customers',
         },
       ],
     },
@@ -65,22 +65,22 @@ export class SidebarComponent implements OnInit, OnDestroy {
         {
           label: 'Category',
           icon: 'fa-solid fa-layer-group',
-          route: '/admin/master/category',
+          route: '/master/category',
         },
         {
           label: 'SubCategory',
           icon: 'fa-solid fa-sitemap',
-          route: '/admin/master/sub-category',
+          route: '/master/sub-category',
         },
         {
           label: 'User Subscribed',
           icon: 'fa-solid fa-crown',
-          route: '/admin/master/subscribed',
+          route: '/master/subscribed',
         },
         {
           label: 'Users Contacted',
           icon: 'fa-solid fa-address-book',
-          route: '/admin/master/contacted',
+          route: '/master/contacted',
         },
       ],
     },
@@ -98,7 +98,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       .subscribe((val) => (this.isExpanded = val));
   }
 
-  // Desktop hover — ignored on mobile
+
   @HostListener('mouseenter')
   onMouseEnter(): void {
     if (!this.isMobile && window.innerWidth >= MOBILE_BREAKPOINT) {

@@ -12,8 +12,9 @@ import {
 import { BreadcrumComponent } from '../../../components/breadcrum/breadcrum.component';
 import { MainService } from '../../../Services/main.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environments';
 
-const BASE_URL = 'https://baklavaapi.cfcsitservices.co.in';
+const BASE_URL = environment.BaseURL;
 
 function noEmoji(ctrl: AbstractControl): ValidationErrors | null {
   const v: string = ctrl.value ?? '';

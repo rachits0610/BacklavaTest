@@ -30,10 +30,10 @@ export class AuthService {
       .pipe(
         tap((res) => {
           this.storage.setItem(TEMP_TOKEN, res.data.token);
-          console.log(res.data.token);
+          // console.log(res.data.token);
 
           this.storage.setItem('crm_user', JSON.stringify(res.data));
-          console.log(res.data);
+          // console.log(res.data);
         })
       );
   }

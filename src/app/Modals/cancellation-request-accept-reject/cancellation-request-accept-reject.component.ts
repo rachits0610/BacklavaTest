@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MainService } from '../../Services/main.service';
+import { environment } from '../../../environments/environments';
 
 @Component({
   selector: 'app-cancellation-request-accept-reject',
@@ -12,6 +13,7 @@ import { MainService } from '../../Services/main.service';
 })
 export class CancellationRequestAcceptRejectComponent implements OnInit {
   @Input() orderId!: number;
+  baseUrl = environment.BaseURL;
 
   order: any = null;
   loading = false;

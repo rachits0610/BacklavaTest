@@ -89,7 +89,7 @@ export class PaymentsComponent implements OnInit {
         this.apiLoading = false;
       },
       error: (err) => {
-        console.error('Payments API error:', err);
+        // console.error('Payments API error:', err);
         this.apiLoading = false;
       },
     });
@@ -99,7 +99,7 @@ export class PaymentsComponent implements OnInit {
     this.mainService.getPaymentStatusDDL().subscribe({
       next: (res: any) => {
         this.paymentStatusDDL = res.data;
-        console.log(res);
+        // console.log(res);
       },
     });
   }
@@ -117,7 +117,7 @@ export class PaymentsComponent implements OnInit {
   }
 
   filterData(event: any): void {
-    console.log(event);
+    // console.log(event);
 
     this.page.search = event.search ?? '';
     this.page.startDate = event.startDate ?? '';
@@ -127,13 +127,13 @@ export class PaymentsComponent implements OnInit {
 
     this.page.pageNo = 1;
 
-    console.log('Payload:', this.page);
+    // console.log('Payload:', this.page);
 
     this.loadPayments();
   }
   addPayment(): void {}
   openViewPage(event: any) {
-    console.log(event);
+    // console.log(event);
     const modalRef = this.modalService.open(PaymentDetailComponent, {
       backdrop: true,
       centered: true,

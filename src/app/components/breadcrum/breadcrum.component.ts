@@ -2,11 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
-
-interface Breadcrumb {
-  label: string;
-  url: string;
-}
+import { Breadcrumb } from '../../models/model';
 
 @Component({
   selector: 'app-breadcrum',

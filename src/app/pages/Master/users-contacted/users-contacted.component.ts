@@ -1,23 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MasterService } from '../../../Services/master.service';
 import { BreadcrumComponent } from '../../../components/breadcrum/breadcrum.component';
 import { ReusableTableComponent } from '../../../components/reusable-table/reusable-table.component';
-
-interface ContactedUser {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  subjectId: number;
-  subjectName: string;
-  message: string;
-  contactedUsAt: string;
-}
+import { ContactedUser } from '../../../models/model';
 
 @Component({
   selector: 'app-users-contacted',
   standalone: true,
-  imports: [CommonModule, DatePipe, BreadcrumComponent, ReusableTableComponent],
+  imports: [CommonModule,  BreadcrumComponent, ReusableTableComponent],
   templateUrl: './users-contacted.component.html',
   styleUrl: './users-contacted.component.css',
 })

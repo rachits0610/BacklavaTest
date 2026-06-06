@@ -45,7 +45,7 @@ export const endpoints = {
   //payments
   getAllPayments: 'Api/Admin/payment-records',
 
-  //ddls
+  //All ddls
   categoryDDl: 'Api/AdminDropdown/dropdown-category',
   subCategoryDDl: 'Api/AdminDropdown/dropdown-subCategory',
   getOrderStatusDDl: 'Api/AdminDropdown/get-order-status-ddl',

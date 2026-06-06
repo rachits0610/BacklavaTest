@@ -81,19 +81,19 @@ export class OrdersComponent implements OnInit {
     this.mainService.getOrderStatusDDl().subscribe({
       next: (res: any) => {
         this.orderStatusDDL = res.data;
-        console.log(res);
+        // console.log(res);
       },
     });
     this.mainService.getPaymentStatusDDL().subscribe({
       next: (res: any) => {
         this.paymentStatusDDL = res.data;
-        console.log(res);
+        // console.log(res);
       },
     });
   }
 
   addOrders() {
-    console.log('Add Orders');
+    // console.log('Add Orders');
   }
 
   loadOrders() {
@@ -134,7 +134,7 @@ export class OrdersComponent implements OnInit {
         this.noOfData = 0;
         this.pageArr = [];
 
-        console.log(err);
+        // console.log(err);
       },
     });
   }
@@ -145,7 +145,7 @@ export class OrdersComponent implements OnInit {
   }
 
   openView(event: any) {
-    console.log('View Order', event);
+    // console.log('View Order', event);
     const modalRef = this.modalService.open(OrderDetailComponent, {
       centered: true,
       size: 'lg',
@@ -188,7 +188,7 @@ export class OrdersComponent implements OnInit {
   }
 
   openDelete(event: any) {
-    console.log('Delete Order', event);
+    // console.log('Delete Order', event);
   }
 
   filterData(event: any) {

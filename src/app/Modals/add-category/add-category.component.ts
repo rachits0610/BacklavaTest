@@ -206,7 +206,6 @@ export class AddCategoryComponent implements OnInit {
         this.toastrService.success(res.meta.status_message, 'Success');
       },
       error: (err) => {
-        console.log('ERROR:', err);
         this.activeModal.dismiss(err);
         this.toastrService.success(err.meta.status_message, 'Failed');
       },

@@ -54,7 +54,7 @@ export class AddNewUserComponent {
       roleId: Number(this.addUserForm.value.roleId),
     };
 
-    console.log(payload);
+  
     this.authService.addNewAdmin(payload).subscribe({
       next: (res: any) => {
         this.activeModal.close();

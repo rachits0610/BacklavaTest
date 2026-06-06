@@ -19,6 +19,8 @@ export class StorageService {
   }
 
   clear() {
-    localStorage.clear();
+    // localStorage.clear();
+    this.removeItem('TEMP_TOKEN');
+    this.removeItem('crm_user');
   }
 }

@@ -138,7 +138,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addProduct(): void {
-    this.router.navigate(['/admin/products/add-product']);
+    this.router.navigate(['/products/add-product']);
   }
 
   addCategory(): void {

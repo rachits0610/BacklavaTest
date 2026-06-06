@@ -1,3 +1,5 @@
+// this component and functionality is not being used
+
 import { Component } from '@angular/core';
 import { BreadcrumComponent } from '../../../components/breadcrum/breadcrum.component';
 import { AddFilterBtnComponent } from '../../../components/add-filter-btn/add-filter-btn.component';

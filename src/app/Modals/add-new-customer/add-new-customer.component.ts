@@ -84,9 +84,9 @@ export class AddNewCustomerComponent implements OnInit {
   onPhoneInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     const cleaned = input.value
-      .replace(EMOJI_RE, '') // no emoji
-      .replace(/[^\d+\-\s()]/g, '') // only digits, +, -, spaces, parens
-      .replace(/(?!^)\+/g, ''); // + only at start
+      .replace(EMOJI_RE, '') 
+      .replace(/[^\d+\-\s()]/g, '') 
+      .replace(/(?!^)\+/g, ''); 
     if (cleaned !== input.value) {
       input.value = cleaned;
       input.dispatchEvent(new Event('input', { bubbles: true }));

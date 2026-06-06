@@ -63,11 +63,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onHamburgerClick(): void {
     this.hamburgerClick.emit();
-    this.dropdownOpen = false; //new
+    this.dropdownOpen = false; 
   }
 
   toggleDropdown(): void {
-    // this.hamburgerClick.emit();
+
     this.stateService.setSidebarOpen(false);
     this.dropdownOpen = !this.dropdownOpen;
   }

@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MasterService } from '../../../Services/master.service';
 import { BreadcrumComponent } from '../../../components/breadcrum/breadcrum.component';
 import { ReusableTableComponent } from '../../../components/reusable-table/reusable-table.component';
-
-interface SubscribedUser {
-  email: string;
-  subscribedAt: string;
-}
+import { SubscribedUser } from '../../../models/model';
 
 @Component({
   selector: 'app-users-subscribed',
   standalone: true,
-  imports: [CommonModule, DatePipe, BreadcrumComponent, ReusableTableComponent],
+  imports: [CommonModule, BreadcrumComponent, ReusableTableComponent],
   templateUrl: './users-subscribed.component.html',
   styleUrl: './users-subscribed.component.css',
 })

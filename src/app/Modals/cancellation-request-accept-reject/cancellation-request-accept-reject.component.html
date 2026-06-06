@@ -1,19 +1,5 @@
 <div class="cr-modal">
-  <!-- Header -->
-  <!-- <div class="cr-modal__header">
-    <div class="cr-modal__header-left">
-      <span class="cr-modal__icon">⚠</span>
-      <div>
-        <h2 class="cr-modal__title">Cancellation Request</h2>
-        <p class="cr-modal__subtitle" *ngIf="order">
-          Order #{{ order.orderNumber }}
-        </p>
-      </div>
-    </div>
-    <button class="cr-modal__close" (click)="close()" aria-label="Close">
-      ✕
-    </button>
-  </div> -->
+
 
   <div class="cr-modal__header">
     <div class="cr-modal__header-left">
@@ -117,9 +103,7 @@
           >
             <div class="cr-item__img-wrap">
               <img
-                [src]="
-                  'https://baklavaapi.cfcsitservices.co.in' + item.productImage
-                "
+                [src]="baseUrl + item.productImage"
                 [alt]="item.productName"
                 class="cr-item__img"
               />

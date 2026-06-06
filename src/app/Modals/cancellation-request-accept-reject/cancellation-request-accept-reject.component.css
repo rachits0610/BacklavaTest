@@ -1,8 +1,7 @@
 .cr-modal {
   display: flex;
   flex-direction: column;
-  /* width: 680px; */
-  /* max-width: 100%; */
+
   max-height: 90vh;
   background: #fff;
   border-radius: 12px;

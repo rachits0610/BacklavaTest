@@ -101,6 +101,20 @@
             </span>
           </span>
         </div>
+     
+
+        <div class="od__row" *ngIf="order.shipping?.shippingStatus">
+          <span class="od__row-label">Shipping Status</span>
+          <span class="od__row-value">
+            <span
+              class="badge badge--sm"
+              [ngClass]="getStatusClass(order.shipping.shippingStatus)"
+            >
+              {{ order.shipping.shippingStatus }}
+            </span>
+          </span>
+        </div>
+
         <div class="od__row" *ngIf="order.razorpayOrderId">
           <span class="od__row-label">Razorpay Order ID</span>
           <span class="od__row-value od__mono">{{
@@ -152,9 +166,7 @@
           >
             <div class="od__item-img-wrap">
               <img
-                [src]="
-                  'https://baklavaapi.cfcsitservices.co.in' + item.productImage
-                "
+                [src]="baseUrl + item.productImage"
                 [alt]="item.productName"
                 class="od__item-img"
               />

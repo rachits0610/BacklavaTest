@@ -51,9 +51,7 @@ export class AddFilterBtnComponent {
         .then((result) => {
           this.onFilter.emit(result);
         })
-        .catch(() => {
-          // dismissed via back button or backdrop — do nothing
-        });
+        .catch(() => {});
     } else {
       const offCanvasRef = this.ngbOffCanvas.open(
         FilterPaymentAndOrderComponent,
@@ -67,9 +65,7 @@ export class AddFilterBtnComponent {
         .then((result) => {
           this.onFilter.emit(result);
         })
-        .catch(() => {
-          // dismissed via back button or backdrop — do nothing
-        });
+        .catch(() => {});
     }
   }
 }

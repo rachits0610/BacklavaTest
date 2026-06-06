@@ -164,7 +164,7 @@
   padding: 20px 8px;
 }
 
-/* On mobile the sidebar is a white drawer */
+
 :host(.mobile-open) .sidebar,
 :host(.mobile-open) .sidebar-panel {
   background: #ffffff;

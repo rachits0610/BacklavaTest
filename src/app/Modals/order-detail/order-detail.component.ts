@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MainService } from '../../Services/main.service';
+import { environment } from '../../../environments/environments';
 
 @Component({
   selector: 'app-order-detail',
@@ -11,6 +12,7 @@ import { MainService } from '../../Services/main.service';
   styleUrl: './order-detail.component.css',
 })
 export class OrderDetailComponent implements OnInit {
+  baseUrl = environment.BaseURL;
   @Input() orderId!: number;
 
   order: any = null;

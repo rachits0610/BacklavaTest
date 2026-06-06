@@ -45,3 +45,21 @@ export interface FilterValues {
   endDate: string;
   statusId: number | '';
 }
+export interface ContactedUser {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  subjectId: number;
+  subjectName: string;
+  message: string;
+  contactedUsAt: string;
+}
+export interface SubscribedUser {
+  email: string;
+  subscribedAt: string;
+}
+
+export interface Breadcrumb {
+  label: string;
+  url: string;
+}
