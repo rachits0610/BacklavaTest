@@ -166,6 +166,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loadDashBoard(): void {
+    // const payload = {
+    //   year: this.selectedRevenueYear,
+    //   categoryId: this.selectedSalesCategory,
+    // };
     const payload = {
       year: this.selectedRevenueYear,
       categoryId: this.selectedSalesCategory,
@@ -242,6 +246,31 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   onSalesCategoryChange(): void {
     this.loadDashBoard();
   }
+  // onSalesYearChange(): void {
+  //   const payload = {
+  //     year: this.selectedSalesYear,
+  //     categoryId: this.selectedSalesCategory,
+  //   };
+  //   this.masterService.getDasdBoardData(payload).subscribe({
+  //     next: (res: any) => {
+  //       this.allSalesPerformance = res.data.salesPerformance ?? [];
+  //       setTimeout(() => this.buildSalesChart(this.allSalesPerformance), 0);
+  //     },
+  //   });
+  // }
+
+  // onSalesCategoryChange(): void {
+  //   const payload = {
+  //     year: this.selectedSalesYear,
+  //     categoryId: this.selectedSalesCategory,
+  //   };
+  //   this.masterService.getDasdBoardData(payload).subscribe({
+  //     next: (res: any) => {
+  //       this.allSalesPerformance = res.data.salesPerformance ?? [];
+  //       setTimeout(() => this.buildSalesChart(this.allSalesPerformance), 0);
+  //     },
+  //   });
+  // }
 
   onRevenueYearChange(): void {
     this.loadDashBoard();

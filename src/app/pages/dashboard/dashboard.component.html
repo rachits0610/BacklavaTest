@@ -219,7 +219,7 @@
           </select>
           <select
             class="select-sm"
-            [(ngModel)]="selectedSalesYear"
+            [(ngModel)]="selectedRevenueYear"
             (ngModelChange)="onSalesYearChange()"
           >
             <option *ngFor="let y of availableYears" [value]="y">
@@ -326,7 +326,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="payment-card">
     <div class="payment-header">
